@@ -1,0 +1,99 @@
+\def\year{2017}\relax
+%File: formatting-instruction.tex
+\documentclass[letterpaper]{article} %DO NOT CHANGE THIS
+\usepackage{aaai17}  %Required
+\usepackage{times}  %Required
+\usepackage{helvet}  %Required
+\usepackage{courier}  %Required
+\usepackage{url}  %Required
+\usepackage{graphicx}  %Required
+\frenchspacing  %Required
+\setlength{\pdfpagewidth}{8.5in}  %Required
+\setlength{\pdfpageheight}{11in}  %Required
+%PDF Info Is Required:
+  \pdfinfo{
+/Title (Supervised Reinforcement Learning with Partial States: a Teaching Method for Action Selection for HRI)
+/Author (Emmanuel Senft)}
+\setcounter{secnumdepth}{0}  
+ \begin{document}
+% The file aaai.sty is the style file for AAAI Press 
+% proceedings, working notes, and technical reports.
+%
+\title{Supervised Reinforcement Learning with Partial States: \\
+ a Teaching Method for Action Selection for HRI}
+
+\author{Emmanuel Senft \and S\'{e}verin Lemaignan\\
+Centre for Robotics and Neural Systems \\
+Plymouth University \\
+United Kingdom\\
+\And Paul Baxter\\
+L-CAS\\
+University of Lincoln\\
+United Kingdom\\
+ \And Tony Belpaeme\\
+ CNRS\\ Plymouth University (UK) \\ iMinds \\ Ghent University (Be)}
+
+\maketitle
+\begin{abstract}
+Robots are expected to be pervasive in human society in the future
+
+not possible to hardcode everything by hand
+
+requirement for learning
+
+hard to learn for HRI
+\begin{itemize}
+	\item real time
+	\item cost of exploration (real humans)
+	\item no clear reward policy and cannot request a human to reward everything
+	\item need to make the most out of each sample
+\end{itemize}
+
+Partial state RL
+
+
+\end{abstract}
+%===============================================================================
+
+\section{Introduction}
+
+Robot interacting with humans, bla bla bla
+
+State used for action selection can be from different sensors, continuous, discrete, representing a value or a state
+
+\cite{kober2013reinforcement}
+%===============================================================================
+
+\section{Background}
+\subsection{Reinforcement Learning}
+\subsection{Human enhanced Reinforcement Learning}
+One of the main challenge when applying RL to robotics is poor perfermance in
+ the early stages of the learning as the agent has to explore the environment to
+ gather initial knowledge. This challenge is especially
+important for robotics as trials often have to happen in the real world (as
+simulator close enough to the real world as not available) and as such can
+present risks for the robot or for the persons interacting with it. 
+
+%===============================================================================
+
+\section{Proposition}
+\subsection{Supervised Progressively Automous Robot Competencies}
+
+\subsection{Partial-State Supervised Reinforcement Learning}
+
+%===============================================================================
+\section{Methodology}
+
+A human supervisor can .
+%===============================================================================
+\section{Results}
+%===============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%==============================================================================
+\section{Acknowledgments}
+This work was supported by the EU FP7 DREAM project (grant no.  611391) and EU
+H2020 Marie Sklodowska-Curie Actions project DoRoThy (grant 657227).  
+
+\bibliographystyle{aaai} \bibliography{biblio}
+\end{document}
