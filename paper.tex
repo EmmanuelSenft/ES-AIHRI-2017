@@ -58,7 +58,29 @@ Partial state RL - accelerate learning
 
 \section{Introduction}
 
-Robot interacting with humans, bla bla bla
+Human-Robot Interaction (HRI) aims at having humans and robot living together
+in the society, interacting socially in many different environments and
+contexts. Robot are expected to behave appropriately regardless of the domain
+of interaction. However, not all behaviours are known in advance and can be
+implemented in the robot before its deployment in the real world. Robots need
+to be able to learn new tasks, new actions policies, new social norms and how
+to make sense of the world surrounding them.
+
+When interacting in the real world, humans face huge spaces of almost unlimited
+dimensions, and despite this complexity, adults and even more children are able
+to learn quickly, often from only a few demonstrations or examples. Humans are
+able to take the most out of every datapoint availble to them. On the other
+hand, recent advances in Machine Learning such as Deep Learning \cite{lecun2015deep}
+have been made possible by the availability of huge dataset covering millions
+of labeled examples or dozens of hours recording. These progress have
+targetting either perception, where labeled datapoints can be available or
+action selection in virtual environments where the impact of actions is
+limited.
+
+Similarly to humans, robots interacting in the real world will have to be able
+to learn quickly, from different types of inputs: demonstrations, commands,
+rewards and also autonomously.
+
 
 State used for action selection can be from different sensors, continuous, discrete, representing a value or a state
 
@@ -67,13 +89,45 @@ State used for action selection can be from different sensors, continuous, discr
 
 \section{Background}
 \subsection{Reinforcement Learning}
+
+The main framework to provide a robot with autonomous learning is Reinforcement
+Learning (RL)(\cite{kober2013reinforcement,sutton1998reinforcement}. The main idea
+behind reinforcement learning is that a agent is interacting in an environment
+providing positive or numerical reward in reaction to the agent's actions and
+the agent selects actions to maximise the expected cummulative discounted
+reward. 
+
+Classic approaches RL relies on exploring virtual environments where the agent
+tries to maximise the reward, but where in the end exploration often do not
+have a real impact and where the agent can interact as long as needed to gather
+enough information on the environment to find a correct action policy.
+
+But in many real worl problem, relying only on random exploration to obtain
+knowledge on the environment is not enough, the agent needs to have some initial
+knowledge or additional knowledge provided often by humans to  work more
+efficiently and achieve more complex results.
+
 \subsection{Human enhanced Reinforcement Learning}
+\subsubsection{Initial knowledge}
+One way to use human knowledge to help an agent to learn is through providing
+initial knowledge. 
+alphago
+
+IRL
+
+OpenAI deep RL
+
 One of the main challenge when applying RL to robotics is poor perfermance in
- the early stages of the learning as the agent has to explore the environment to
- gather initial knowledge. This challenge is especially
+the early stages of the learning as the agent has to explore the environment to
+gather initial knowledge. This challenge is especially
 important for robotics as trials often have to happen in the real world (as
 simulator close enough to the real world as not available) and as such can
 present risks for the robot or for the persons interacting with it. 
+
+\subsubsection{Guiding the learning}
+scafolding 
+shaping
+guidance
 
 %===============================================================================
 
@@ -195,8 +249,8 @@ selected, the agent can select an action following Algorithm \ref{algo}.
     \SetKwInOut{Input}{inputs}\SetKwInOut{Output}{output}
     \Input{Current state s, action-partial state rewards tuples}
     \Output{selected action $\pi(s)$}
-    \ForEach{a $\in $ A}{
-        \ForEach{ s'-r $\in C_{a}$}{
+    \ForEach{a $\in$ A}{
+        \ForEach{s'-r $\in C_{a}$}{
             compute similarity
             $\Delta(s',s)=1-\frac{\sum_{j}^{n'}(s'(j)-s(j))^{2}}{n'}$
         }
@@ -216,7 +270,42 @@ the dimensions of the similar state s' to indicate the supervisor which parts of
 the states have been used for the action selection.
 
 %===============================================================================
-\section{Results}
+\section{Challenges}
+
+The main challenge for using Interactive Machine Learning is to translate the
+state-action space between the human view and the algorithm view. This is one
+important reason why many researchers in IML focuse on limiting the human impact
+to providing reward~\cite{knox2009interactively} or kinesthetic demonstrations
+in the robot space~\cite{billard2008robot}. However as shown by Thomaz and Breazeal~\cite{thomaz2008teachable}, using more complex inputs from the supervisor, such
+as guidance biasing the action selection can lead to a better performance in the
+learning. But to able to use these higher level and more complex inputs from
+humans, these actions have to be translated in inputs usable for the learning
+algorithm and/or the action selection mechanism. 
+
+The more complex the inputs from the humans are the more additional information
+can be transmitted to the learning, allowing the agent to learn more complex
+behaviours faster.
+
+Similarly, as shown by Senft and al. in \cite{senft2017supervised}, providing
+more control to the supervisor about the robot actions can lead to keep the
+agent in relevant states of the environment and as such speeding the learning
+and making it safer for the robot and people interacting with it. However this
+method is dependent of letting the human know what action the robot is about to
+execute, which relies on the robot to express its intention in a human
+understandable way. (ADDREF - see Serge?)
+
+Another challenge is state representation, the state accessed by the learning
+algorithm and the one accessed by the supervisor can be represented is highly
+different space, covering different features, and if the robot aims to profit
+from the human initial knowledge, it needs to have access to similar features in
+the environment to the ones the human is using, and the human needs to be able
+to transmit these features to the learning algorithm.
+(the representation of the state is often engineered by the programmers of the
+algorithm, and space features not considered in the initial design could
+actually be important in the final one. Idea of Deep Learning, but not enough
+datapoints.)
+
+Needs a parallel to human learning from humans
 
 \section{Future work}
 
