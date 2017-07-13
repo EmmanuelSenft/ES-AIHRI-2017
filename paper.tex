@@ -23,8 +23,12 @@
 \title{Supervised Reinforcement Learning with Partial States: \\
  a Teaching Method for Action Selection for HRI}
 
-\author{Emmanuel Senft \and S\'{e}verin Lemaignan\\
-Centre for Robotics and Neural Systems \\
+\author{Emmanuel Senft \\
+CNRS \\
+Plymouth University \\
+United Kingdom\\
+\And S\'{e}verin Lemaignan\\
+CNRS \\
 Plymouth University \\
 United Kingdom\\
 \And Paul Baxter\\
@@ -61,71 +65,110 @@ Partial state RL - accelerate learning
 Human-Robot Interaction (HRI) aims at having humans and robot living together
 in the society, interacting socially in many different environments and
 contexts. Robot are expected to behave appropriately regardless of the domain
-of interaction. However, not all behaviours are known in advance and can be
-implemented in the robot before its deployment in the real world. Robots need
+of interaction. However, not all behaviours can be known in advance and can be
+implemented in the robot before its deployment in the real world. Similarly to
+ humans, robots need
 to be able to learn new tasks, new actions policies, new social norms and how
 to make sense of the world surrounding them.
 
 When interacting in the real world, humans face huge spaces of almost unlimited
 dimensions, and despite this complexity, adults and even more children are able
 to learn quickly, often from only a few demonstrations or examples. Humans are
-able to take the most out of every datapoint availble to them. On the other
-hand, recent advances in Machine Learning such as Deep Learning \cite{lecun2015deep}
+able to take the most out of every datapoint available to them. On the other
+hand, recent impressive advances in Machine Learning such as Deep Learning~\cite{lecun2015deep}
 have been made possible by the availability of huge dataset covering millions
-of labeled examples or dozens of hours recording. These progress have
+of labeled examples or dozens of hours of recording. These progress have
 targetting either perception, where labeled datapoints can be available or
 action selection in virtual environments where the impact of actions is
 limited.
 
 Similarly to humans, robots interacting in the real world will have to be able
-to learn quickly, from different types of inputs: demonstrations, commands,
-rewards and also autonomously.
+to learn quickly. One way of achieving this fast learning is to learn from
+humans, i.e using human inputs to boostrap the learning. We argue that to be
+capable to interact in the real world with humans, robots have to be able to
+learn from different types of inputs: demonstrations, commands, rewards and 
+also autonomously.
 
-
-State used for action selection can be from different sensors, continuous, discrete, representing a value or a state
-
-\cite{kober2013reinforcement}
 %===============================================================================
 
 \section{Background}
 \subsection{Reinforcement Learning}
 
 The main framework to provide a robot with autonomous learning is Reinforcement
-Learning (RL)(\cite{kober2013reinforcement,sutton1998reinforcement}. The main idea
-behind reinforcement learning is that a agent is interacting in an environment
+Learning (RL)~\cite{kober2013reinforcement,sutton1998reinforcement}. In RL, an
+agent is interacting in an environment
 providing positive or numerical reward in reaction to the agent's actions and
-the agent selects actions to maximise the expected cummulative discounted
-reward. 
+the agent learns an action policy to maximise the expected cummulative discounted
+reward obtained by the agent.
 
 Classic approaches RL relies on exploring virtual environments where the agent
-tries to maximise the reward, but where in the end exploration often do not
-have a real impact and where the agent can interact as long as needed to gather
-enough information on the environment to find a correct action policy.
-
-But in many real worl problem, relying only on random exploration to obtain
-knowledge on the environment is not enough, the agent needs to have some initial
-knowledge or additional knowledge provided often by humans to  work more
-efficiently and achieve more complex results.
+tries to maximise the reward. In most of the cases where RL achieves success, it
+had access to a virtual environment where the only real cost of exploring was
+time and energy, and the agent can interact as long as needed to gather
+enough information on the environment to find a correct action policy. When
+these conditions are reunited, RL can achieve impressive results, as shown by
+the victory of a computer in Backgammon back in the 90s~\cite{tesauro1995temporal} or more recently the success achieved in playing
+Atari games based only on the image and the game rewards~\cite{mnih2015human}.
 
 \subsection{Human enhanced Reinforcement Learning}
+
+No simulator of world, and especially of social interactions allows robots to 
+learn in a virtual environment, so robots, especially if the have to interact
+with humans have to be able to learn in the real world.
+However, in the real physical world, every actions have an impact on the
+environment, especially in HRI when actions can upset and negatively impact
+humans interacting with the robot. Additionally acquiring datapoints in can be
+expensive in term of time and other ressources. As such many approaches aiming
+at providing robot with learn to interact in the real world have relied on
+knowledge provided by a human in different way to avoid this random exploration
+presenting risk to the robot and persons interacting with it.
+
 \subsubsection{Initial knowledge}
 One way to use human knowledge to help an agent to learn is through providing
-initial knowledge. 
-alphago
+initial knowledge. By providing demonstrations of an expected actions policy,
+humans can boostrap the learning and provide the agent with a more appropriate
+action policy that it can improve over time. 
 
-IRL
+These demonstrations can be used to create an initial action policy which could
+have been discovered autonomously, but without requiring an initial discovery
+phase where the performance has to be low when the agent is learning from its
+environment. Recent work~\cite{hester2017learning} have shown that using initial
+human demonstrations can allow the initial performance to be much better than
+starting from scratch in playing Atari games, and even sometimes this allow to
+achieve higher performance than only relying on exploration to learn an action
+policy.
 
-OpenAI deep RL
+In some cases, the state space is too big to rely only on random exploration to
+reach a successful action policy. For example the game of Go in its larger board
+size contains more than $10^{210}$ states, so exhaustive search is not possible
+with today's ressources. Authors of \cite{silver2016mastering} started with
+supervised learning from go master's games to learn a decent policy and then
+used convolutional networks, self play and tree search to achieve super-human
+capabilities and beatting humans best players.
 
-One of the main challenge when applying RL to robotics is poor perfermance in
-the early stages of the learning as the agent has to explore the environment to
-gather initial knowledge. This challenge is especially
-important for robotics as trials often have to happen in the real world (as
-simulator close enough to the real world as not available) and as such can
-present risks for the robot or for the persons interacting with it. 
+Another way to use these demonstrations is Inverse
+Reinforcement Learning, the agent derives from demonstrations of an expert an
+expected reward function that it can use to improve a policy based on the
+demonstrations and so achieving higher performance than the demonstrations
+themselves. By using this technic, Abbeel managed to teach an autonomous
+helicopter to do high level acrobatics often only executable by high level
+expert~\cite{abbeel2004apprenticeship}. 
+
+%One of the main challenge when applying RL to robotics is poor perfermance in
+%the early stages of the learning as the agent has to explore the environment to
+%gather initial knowledge. This challenge is especially
+%important for robotics as trials often have to happen in the real world (as
+%simulator close enough to the real world as not available) and as such can
+%present risks for the robot or for the persons interacting with it. 
 
 \subsubsection{Guiding the learning}
-scafolding 
+Rather than providing initial knowledge to the agents, humans can also guide the
+agent throughout the learning by organising the tasks the robot will face, this
+approach is known as scaffolding \cite{saunders2006teaching}. This allows to
+teach the robot successive more complex policies by increasing the complexity of
+the task presented and reusing previously learnt behaviours.
+
+
 shaping
 guidance
 
@@ -175,18 +218,20 @@ In \cite{senft2017supervised}, we presented a way to combine SPARC and RL, by
 assigning a positive reward to every action executed by the robot as it would
 have been passively or actvely validated by the supervisor. However this method
 was not making use of any type of generalisation, it was directly mapping a
-single state action pair to a reward. 
+single state action pair to a reward, and as such has limited efficiency in
+environments with a continuous space or a high dimensional and undeterministic
+one.
 
 \subsection{Partial-State Supervised Reinforcement Learning}
 
-REFORMULATE: start with size of the world
+REFORMULATE: start with size of the world and oragnisation by sensory inputs
 To be usable in complex environments, a
 learning algorithm requires generalisation as exactly identical spaces might
-never been observed twice.
+never been observed twice in the life time of the agent.
 
 A classical approach to generalise in RL is to use a first layer of neural
 network or to use deep reinforcement learning which relies on deep neural
-networks to learn a mapping state-action-Qvalue for example. (ADDREF)
+networks to learn a mapping state action Qvalue for example. (ADDREF)
 These approaches, neural network based, relies on having a large number of
 datapoints to converge toward a good function approximator. However, as
 discussed previously, in many application, these amounts of data are not
@@ -194,10 +239,10 @@ possible to be obtained and a robot might need to adapt to different persons and
 be retrained quickly.
 
 With that idea in mind, we propose to make a better use of human inputs, and ask
- the supervisor to identify which features of the environment are linked to the
- current selected action. That was, instead of having an state-action pair, we
- can have a partial-state action pair, with this partial-state being a subset of
- the state domain.
+the supervisor to identify which features of the environment are linked to the
+current selected action. Instead of having an state-action pair, we
+can have a partial-state action pair, with this partial-state being a subset of
+the state domain.
 
 %===============================================================================
 \section{Methodology}
