@@ -40,23 +40,22 @@ United Kingdom\\
 
 \maketitle
 \begin{abstract}
-Robots are expected to be pervasive in human society in the future
-
-not possible to hardcode everything by hand
-
-requirement for learning
-
-hard to learn for HRI
-\begin{itemize}
-	\item real time
-	\item cost of exploration (real humans)
-	\item no clear reward policy and cannot request a human to reward everything
-	\item need to make the most out of each sample
-\end{itemize}
-
-Partial state RL - accelerate learning
-
-
+As robots will integrate human society, they will be expected to interact
+appropriately with surrounding humans. However at the design time, it cannot be
+known in advance exactly all the behaviours expected from the robot, as such to
+be accepted in human society robots have to learn how to interact with humans.
+Learning social interaction is a complex task, the learning will probably have
+to be made online and in the real world, as no simulator precise enough exists.
+This means that robots will have to learn directly from interacting with humans,
+which limits the quantity of datapoint possible to gather and make exploration
+riskier as actions will have real impacts on surrounding humans. Additionally,
+no clear reward function exists for social interactions. As such we argue that
+robots will highly profit from human expertise and guidance to learn social
+interactions and they also will have to make the most out of each datapoint. We
+propose to combine the Supervised Progressively Autonomous Robot Competencies
+allowing a safer online learning and Reinforcement Learning based on partial
+states rather than full states to accelerate the learning, and using more fully
+each datapoint.
 \end{abstract}
 %===============================================================================
 
@@ -169,8 +168,9 @@ teach the robot successive more complex policies by increasing the complexity of
 the task presented and reusing previously learnt behaviours.
 
 
-shaping
-guidance
+shaping \cite{knox2009interactively}
+
+guidance \cite{thomaz2008teachable}
 
 %===============================================================================
 
@@ -224,7 +224,9 @@ one.
 
 \subsection{Partial-State Supervised Reinforcement Learning}
 
-REFORMULATE: start with size of the world and oragnisation by sensory inputs
+REFORMULATE: start with size of the world and oragnisation by sensory inputs and
+focus of attention for human, we can be aware of many things without taking them
+into account - more symbolic appraoch?
 To be usable in complex environments, a
 learning algorithm requires generalisation as exactly identical spaces might
 never been observed twice in the life time of the agent.
