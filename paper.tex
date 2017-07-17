@@ -40,22 +40,23 @@ United Kingdom\\
 
 \maketitle
 \begin{abstract}
-As robots will integrate human society, they will be expected to interact
-appropriately with surrounding humans. However at the design time, it cannot be
-known in advance exactly all the behaviours expected from the robot, as such to
+As robots will integrate human society, they will have to satify humans'
+expectations. However at the design time, it seems hardly possible to
+know in advance exactly all the behaviours expected from the robot. As such to
 be accepted in human society robots have to learn how to interact with humans.
-Learning social interaction is a complex task, the learning will probably have
-to be made online and in the real world, as no simulator precise enough exists.
+But learning social interaction is a complex task. Firstly, no simulator of
+human interactions precise enough exists today, so the learning will probably have
+to be made online and in the real world.
 This means that robots will have to learn directly from interacting with humans,
 which limits the quantity of datapoint possible to gather and make exploration
-riskier as actions will have real impacts on surrounding humans. Additionally,
+riskier as actions will have real impacts on humans or the robot itself. Additionally,
 no clear reward function exists for social interactions. As such we argue that
 robots will highly profit from human expertise and guidance to learn social
-interactions and they also will have to make the most out of each datapoint. We
+interactions. And as the quantity of data is limited, they also will have to make the most out of each datapoint. We
 propose to combine the Supervised Progressively Autonomous Robot Competencies
 allowing a safer online learning and Reinforcement Learning based on partial
-states rather than full states to accelerate the learning, and using more fully
-each datapoint.
+states rather than full states to accelerate the learning by using more
+information form the human teacher.
 \end{abstract}
 %===============================================================================
 
@@ -64,16 +65,17 @@ each datapoint.
 Human-Robot Interaction (HRI) aims at having humans and robot living together
 in the society, interacting socially in many different environments and
 contexts. Robot are expected to behave appropriately regardless of the domain
-of interaction. However, not all behaviours can be known in advance and can be
+of interaction. However, not all behaviours can be known in advance and be
 implemented in the robot before its deployment in the real world. Similarly to
  humans, robots need
 to be able to learn new tasks, new actions policies, new social norms and how
 to make sense of the world surrounding them.
 
 When interacting in the real world, humans face huge spaces of almost unlimited
-dimensions, and despite this complexity, adults and even more children are able
-to learn quickly, often from only a few demonstrations or examples. Humans are
-able to take the most out of every datapoint available to them. On the other
+dimensions, and despite this complexity, humans, and especially children are able
+to learn quickly, often from only a few demonstrations or examples. One of the
+ reason could be that they are able to take the most out of every datapoint available to them. 
+ On the other
 hand, recent impressive advances in Machine Learning such as Deep Learning~\cite{lecun2015deep}
 have been made possible by the availability of huge dataset covering millions
 of labeled examples or dozens of hours of recording. These progress have
@@ -81,12 +83,15 @@ targetting either perception, where labeled datapoints can be available or
 action selection in virtual environments where the impact of actions is
 limited.
 
-Similarly to humans, robots interacting in the real world will have to be able
-to learn quickly. One way of achieving this fast learning is to learn from
-humans, i.e using human inputs to boostrap the learning. We argue that to be
-capable to interact in the real world with humans, robots have to be able to
-learn from different types of inputs: demonstrations, commands, rewards and 
-also autonomously.
+However, these immense labelled dataset or virtula worlds are not existent for
+social interaction. To learn how to interact with humans, robots will have to
+experiment in the real world facing real reactions from their actions. So they
+have to learn quickly while consistently exhibiting a decent behaviours.
+One way of ensuring this correct  behaviours is to use a human to supervised the
+the robot during the early phase of learning, and this human can also provide
+inputs to boostrap the learning, achieving a faster learning. This paper present
+a novel method based on human supervision, feature highlighting and partial
+state reinforcement learning to achieve this fast and safe learning.
 
 %===============================================================================
 
@@ -96,13 +101,13 @@ also autonomously.
 The main framework to provide a robot with autonomous learning is Reinforcement
 Learning (RL)~\cite{kober2013reinforcement,sutton1998reinforcement}. In RL, an
 agent is interacting in an environment
-providing positive or numerical reward in reaction to the agent's actions and
+providing numerical reward in reaction to the agent's actions and
 the agent learns an action policy to maximise the expected cummulative discounted
 reward obtained by the agent.
 
-Classic approaches RL relies on exploring virtual environments where the agent
+Classic approaches RL generally rely on exploring virtual environments where the agent
 tries to maximise the reward. In most of the cases where RL achieves success, it
-had access to a virtual environment where the only real cost of exploring was
+had access to a virtual environment where the only real cost of exploring is
 time and energy, and the agent can interact as long as needed to gather
 enough information on the environment to find a correct action policy. When
 these conditions are reunited, RL can achieve impressive results, as shown by
@@ -142,7 +147,7 @@ reach a successful action policy. For example the game of Go in its larger board
 size contains more than $10^{210}$ states, so exhaustive search is not possible
 with today's ressources. Authors of \cite{silver2016mastering} started with
 supervised learning from go master's games to learn a decent policy and then
-used convolutional networks, self play and tree search to achieve super-human
+used deep learning, self play and tree search to achieve super-human
 capabilities and beatting humans best players.
 
 Another way to use these demonstrations is Inverse
@@ -161,16 +166,30 @@ expert~\cite{abbeel2004apprenticeship}.
 %present risks for the robot or for the persons interacting with it. 
 
 \subsubsection{Guiding the learning}
-Rather than providing initial knowledge to the agents, humans can also guide the
-agent throughout the learning by organising the tasks the robot will face, this
-approach is known as scaffolding \cite{saunders2006teaching}. This allows to
-teach the robot successive more complex policies by increasing the complexity of
-the task presented and reusing previously learnt behaviours.
+Rather than solely providing initial knowledge to the agents, humans can also guide the
+agent throughout the learning in a more human-like teaching scenario. 
 
+A first possibility is organising the tasks the robot will face. 
+This approach, known as scaffolding \cite{saunders2006teaching} progressively
+increase the difficulty and complexity of the task or the environment as the
+robot is learning to achieved complex policy not directly learnable in the final
+environment.
 
-shaping \cite{knox2009interactively}
+Another possibility is shaping. For example, the TAMER framework
+\cite{knox2009interactively}, allows to teach an agent an action policy in an
+environment providing no rewards using a human observer to supply rewards to the
+agent. One of the interest of this approach is that the teacher can adapt the
+rewards to the current policy of the agent, for example starting to reward
+positively suboptimal behaviours but which still improve the current policy and
+later, as the agent improve its behaviour reward these same suboptimal behaviour
+negatively and only the optimal ones positively.
 
-guidance \cite{thomaz2008teachable}
+A last possibility to guide the the learning is to bias the action selction.
+In~\cite{thomaz2008teachable}, the authors propose to use a human supervisor to
+supply  an agent both rewards and potential guidance or advise indicating where
+the agent should pay attention, or what it should do next. And they show that
+giving the power to the supervisor to bias the action selection can improve the
+learning, making it faster, safer.
 
 %===============================================================================
 
@@ -179,48 +198,53 @@ guidance \cite{thomaz2008teachable}
 
 As a way to enable a human supervisor to teach a robot an action policy while
 interacting with its environment, we proposed the Supervised Progressively
-Autonomous Robot Competencies (SPARC) in \cite{senft2015sparc}. SPARC is independent
-of the learning algorithm used, but define an interaction dynamic between an
-agent learning an action policy while interacting in an environment and a
-supervisor teaching this agent an action policy. The main goal of SPARC is
+Autonomous Robot Competencies (SPARC) in~\cite{senft2015sparc}. SPARC defines an
+interaction dynamic between an agent learning an action policy while interacting
+in an environment and a
+supervisor teaching this agent what to do. The main goal of SPARC is
 enabling a robot to learn from a supervisor while ensuring that every action
 executed by the robot has approval of the supervisor but without requiring this
 supervisor to manually enforce every single action.
 
 The main concept in SPARC is giving the supervisor the control over the agent
 action and combine this with online learning on the agent side. This control is
-achieved using a suggestion/correction mechanism whereas the agent is presenting
+achieved using a suggestion/correction mechanism whereby the agent presents
 to the supervisor the action about to be executed and the supervisor can cancel
 this action before its execution or not doing anything, letting the action being
 executed after a delay. Additionally, the supervisor can select actions to be
-executed by the agent. The actions selected or canceled by the supervisor can be
+executed by the agent. The actions selected, accepted or canceled by the supervisor can be
 used as input with the current state by a learning algorithm to progressively
-improve the future suggestions.
+improve the future suggestions thus reducing the reliance on the supervisors.
 
 Giving power to an expert to correct the actions of the agent before the
 execution can ensure that even in the early phases of the learning the agent can
-have an appropriate action policy for the current environment as shown in Figure~\ref{fig:comparison}.
+have an appropriate action policy for the current environment as shown in
+Figure~\ref{fig:comparison} while making the learning faster compared to
+autonomous learning. (update figure with autonomous learning, classical learning from human rewards
+and sparc)
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{./fig/motivation.pdf}
-    \caption{Idealised expectation for performance, autonomy and workload for a
-    Wizard of Oz, a autonomous learner and SPARC.}
+    \caption{Idealised expectation for performance, autonomy and human workload for a
+    an autonomous learner, an approach using human rewards and SPARC.}
     \label{fig:comparison}
 \end{figure}
 
 SPARC has been design with the idea of teaching a robot to interact with humans,
-it is specially usefull when the pace of action selection is low (less than
-1Hz), when the agent has to learn with a limited number of datapoints and when
-undesired actions executed by an agent can have a high cost. 
+it is specially usefull when the frequency of action selection is low (less than
+1Hz) so action can be evaluated by a human before being executed, when the agent
+has to learn with a limited number of datapoints and when
+undesired actions executed by an agent can have a high cost and are to be
+avoided. 
 
 In \cite{senft2017supervised}, we presented a way to combine SPARC and RL, by
 assigning a positive reward to every action executed by the robot as it would
 have been passively or actvely validated by the supervisor. However this method
 was not making use of any type of generalisation, it was directly mapping a
-single state action pair to a reward, and as such has limited efficiency in
-environments with a continuous space or a high dimensional and undeterministic
-one.
+single state action pair to a reward, and as such had limited efficiency in
+environments with a continuous or high dimensional space or undeterministic
+transition from one state to another.
 
 \subsection{Partial-State Supervised Reinforcement Learning}
 
