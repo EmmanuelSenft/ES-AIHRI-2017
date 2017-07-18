@@ -351,42 +351,35 @@ supervisor which parts of the state have been used for the action selection.
 %===============================================================================
 \section{Challenges}
 
-Check Power to people and use it as bases for challenge discussion.
+A large body of the
+Interactive Machine Learning research is focused on simple inputs from the
+humans, such as providing labels \cite{cakmak2012designing}, rewards
+\cite{knox2009interactively} or kinesthetic demonstrations
+\cite{billard2008robot}. However, as stated in \cite{amershi2014power}: "people
+want to demonstrate how learners should behave" and "users may desire richer
+control over machine-learning systems than simply labeling data". Human teachers
+want to be more active and involved in the teaching process, to make their
+student learning faster. 
+And, as shown in \cite{senft2017supervised}, providing teacher with this control
+can keep the agent in relevant states of the environment, speeding the learning
+and reducing the risk to have the robot execute undesired actions.
 
-One important challenge for using Interactive Machine Learning is to translate the
-state-action space between the human view and the algorithm view. This is a
-reason why many researchers in IML focuse on limiting the human impact
-to providing reward~\cite{knox2009interactively} or kinesthetic demonstrations
-in the robot space~\cite{billard2008robot}. However as shown by Thomaz and Breazeal~\cite{thomaz2008teachable}, using more complex inputs from the supervisor, such
-as guidance biasing the action selection can lead to a better performance in the
-learning. However, to able to use these higher level and more complex inputs from
-humans, these actions have to be translated in inputs usable for the learning
-algorithm and/or the action selection mechanism. 
-
-The more complex the inputs from the humans are the more additional information
-can be transmitted to the learning, allowing the agent to learn more complex
-behaviours faster.
-
-Similarly, as shown by Senft and al. in \cite{senft2017supervised}, providing
-more control to the supervisor about the robot actions can lead to keep the
-agent in relevant states of the environment and as such speeding the learning
-and making it safer for the robot and people interacting with it. However this
-method is dependent of letting the human know what action the robot is about to
-execute, which relies on the robot to express its intention in a human
-understandable way. (ADDREF - see Serge?)
-
-Another challenge is state representation, the state accessed by the learning
-algorithm and the one accessed by the supervisor can be represented is highly
-different space, covering different features, and if the robot aims to profit
-from the human initial knowledge, it needs to have access to similar features in
-the environment to the ones the human is using, and the human needs to be able
-to transmit these features to the learning algorithm.
-(the representation of the state is often engineered by the programmers of the
-algorithm, and space features not considered in the initial design could
-actually be important in the final one. Idea of Deep Learning, but not enough
-datapoints.)
-
-Needs a parallel to human learning from humans
+In human social learning, both interactants have access to a similar set of
+inputs: the senses available to a human body, and the teacher has additional
+knowledge about the environment that can be communicated in an open ended way to
+the learner. On the other in human-robot teaching, the way to sense the world
+can be highly different between the two partners, and as of today, there is no
+open ended way of communicating new concepts or explication as natural langage
+processing is not yet solve. This creates two main challenges to make robot
+learning for human use complex inputs: 
+\begin{itemize}
+    \item Having a mapping between the action state space of the human and the
+            robot ensuring that feature used for action selection for one
+            interactant are available to the other.
+    \item Communicating these features from one participant to the other: allow
+        the robot to make sense of the human's instructions and the human to
+        understand the robot's intentions.
+\end{itemize}
 
 \section{Future work}
 
