@@ -386,18 +386,18 @@ learning for human use complex inputs:
 This method still has to be tested in a real Human-Robot Interaction, and this
 evaluation is currently being implemented and will be tested in a near future.
 
-Other way of extending the current work would be to combine it with the
-possibility of letting the agent continue to explore in the absence of a
-supervisor around a learnt action policy to keep improving its behaviour. This
+The current work could be extended to allow the agent continue to improve its
+behaviour even in the absence of supervisor, exploring around a learnt policy
+progressively improving its policy beyond what have been taught. This
 could be done by allowing the supervisor to provide rewards during the learning
-phase, rewards which could also be assigned to partial states. The system could
-also learn to predict these rewards in an approach similar to TAMER 
-\cite{knox2009interactively}. But in the case of an absence of supervisor, the assumption that only a
+phase, and combine these rewards with the demonstrations to learn a reward
+function in a fashion similar to Inverse Reinforcement Learning
+\cite{abbeel2004apprenticeship}. These could also use partial states associated
+to these rewards to have a general reward function despite a low number of
+datapoints.
+But without the supervisor, the assumption that only a
 myopic action selection is sufficient would not hold anymore and the problem of
-delayed rewards would have to be tackled. It could be for example possible to
-adapt well known algorithms such as QLearning to handle partial states rather
-the full states.
-
+delayed rewards would have to be tackled.
 %===============================================================================
 \section{Conclusion}
 \label{sec:conclusion}
