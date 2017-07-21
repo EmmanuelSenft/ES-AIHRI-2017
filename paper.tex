@@ -91,7 +91,7 @@ select actions appropriated to the current space. However,
 %by neural networks assuming that enough datapoints are available. 
 
 In previous work~\cite{senft2015sparc,senft2017supervised}, we introduced the
-Supervised Progressively Autonomous Robot Competencies (SPARC), as a way to
+Supervised Progressively Autonomous Robot Competencies (SPARC), a way to
 teach a robot an action policy while interacting based on a supervisor
 correcting actions about to be executed by the robot. In this paper, we propose
 to extend this approach to allow the supervisor to highlight features in the
@@ -145,13 +145,13 @@ reward obtained by the agent.
 
 Classic approaches in RL generally rely on exploring virtual environments where the agent
 tries to maximise the reward. In many cases where RL achieves success, the agent
-had access to a virtual environment where the only real cost of exploring was 
+has access to a virtual environment where the only real cost of exploring is 
 time and energy, and the agent can interact as long as needed to gather
 enough information on the environment to find a correct action policy. When
 these conditions are reunited, RL can achieve impressive results, as shown by
 the victory of a computer in Backgammon back in the
-90s~\cite{tesauro1995temporal} or more recently the success achieved in playing
-Atari games based only on the image and the game rewards~\cite{mnih2015human}.
+90s~\cite{tesauro1995temporal} or more recently the success mastering the game
+of go~\cite{silver2016mastering}.
 
 \subsection{Human impact on Reinforcement Learning}
 
@@ -161,14 +161,14 @@ be exploited in many ways.
 
 \subsubsection{Design decisions:}
 Initial knowledge has to be use in the designing of the algorithm, the
-representation of the state and actions spaces and the rewrd funtion. For
+representation of the state and actions spaces and the reward funtion. For
 example, only carefully crafted features allowed
 Tesauro to improve its algorithm for Backgammon from a intermediate-level player
 to super-human level~\cite{tesauro1995temporal}. Similarly, the design of
 complex neural networks for state generalisation, the representation of actions
 as motor primitive rather than raw motor angles or adding additional
 informations in the reward function have important impacts on the ability of
-the robot to reach a successful policy.
+the robot to reach a successful policy~\cite{kober2013reinforcement}.
 
 \subsubsection{Demonstrations:}
 Initial knowledge can be provided to the agent learning through demonstrations.
@@ -188,44 +188,41 @@ Reinforcement Learning, the agent is not provided with a reward function, but
 derives it from a set of expert demonstrations. The agent can then explore
 around the demonstrated policy to find how to optimise the reward function. With
 this approach, Abbeel and Ng achieved better than human control for a robotic
-helicopter~\cite{abbeel2004apprenticeship}.
+helicopter~\cite{abbeel2004apprenticeship} based on demonstrations from experts.
 
 \subsubsection{Guiding the learning:}
-
-In some cases, the state space is simply too big to rely only on random exploration to
-reach a successful action policy.Rather than solely providing initial knowledge
+Rather than solely providing initial knowledge
 to the agents, humans can also guide the agent throughout the learning in a more
 human-like teaching manner. 
 
 A first approach consists in sequencing tasks the robot will face. 
 This approach, known as "scaffolding" \cite{saunders2006teaching}, progressively
-increase the difficulty and complexity of the task or the environment as the
-robot is learning policies to achieve complex task not directly learnable in the final
-environment.
+increase the difficulty and complexity of the task as the robot is learning
+reaching policies not directly learnable in the final environment.
 
 A second approach is "shaping". For example, the TAMER framework
 \cite{knox2009interactively}, allows to teach an agent an action policy in an
 environment providing no rewards using a human observer to supply rewards to the
 agent. With this approach the teacher can adapt the
 rewards to the current policy and performance of the agent, for example starting to reward
-positively suboptimal behaviours but which still improve the current policy and
-later, as the agent improve its behaviour reward these same suboptimal behaviour
-negatively and only the optimal ones positively.
+positively suboptimal behaviours but better than the current policy and
+later, as the agent improve its behaviour, reward these same suboptimal
+behaviours negatively and only the optimal ones positively.
 
 Another approach to guide the the learning is to bias the action selection.
 In~\cite{thomaz2008teachable}, the authors propose to use a human supervisor to
 supply  an agent both rewards and potential guidance or advise indicating where
-the agent should pay attention, or what it should do next. And they show that
+the agent should pay attention, or what it should do next. They show that
 giving the power to the supervisor to bias the action selection can improve the
-learning, making it faster, safer.
+learning, making it faster and safer.
 
 In \cite{senft2015sparc}, we introduced the Supervised Progressively
-Autonomous Robot Competencies (SPARC). SPARC relies on the presence of a
-supervisor teaching a robot how to interact in an environment. This teacher
-knowns which actions the robot is about to execute and can cancel an action or
-select another to be executed. Based on the supervisor's decisions, the robot
-learns which actions are desired and can refine its policy over time reducing
-the need for the teacher to correct or select an action.
+Autonomous Robot Competencies (SPARC). SPARC relies on supervisor with the
+ability to control the robot's actions. This teacher is presented with the
+actions the robot is about to execute and can cancel an action, let it be
+executed or select another to be executed. Based on the supervisor's decisions,
+the robot learns which actions are desired and can refine its policy over time
+reducing the need for the teacher to correct or select an action.
 
 SPARC gives control on the robot actions to an expert, who can guide the
 exploration in the desired part of the environment and this ensures the robot's
@@ -253,7 +250,7 @@ In \cite{senft2017supervised}, we presented a way to combine SPARC and RL, by
 assigning a positive reward to every action executed by the robot as it would
 have been explicitely or implicitely approved by the supervisor. However this method
 was not making use of any kind of generalisation, directly mapping a
-single (state,action) pair to a reward, and as such is not applicable to
+single (state, action) pair to a reward, and as such is not applicable to
 environments with a continuous or high dimensional space or undeterministic
 transition from one state to another.
 
