@@ -430,19 +430,19 @@ features relevant to the eagle and the rat have been used to select this action.
 
 In the current implementation, the state is defined by the distance between each
 animals and their life. With these features selected, the partial state
-transmitted to the user is the distance between the eagle, the eagle's life and
-the rat's life. Similarly, when selected an action, the supervisor can also
-select features in the state relevant to the selction.
+transmitted to the user is the distance between the eagle and the rat, the eagle's life and
+the rat's life. Similarly, when selecting an action, the supervisor can 
+select features in the state relevant to the selection.
 
-Limitations of the approach reside in the difference of
+The main limitations of the approach reside in the difference of
 representation of the state and action spaces between the supervisor and the
-algorithm and limits in the communication. For example a user could try to move
+algorithm and the limit in communication. For example a user could try to move
 an animal close to another one,
 and depending of the represenation of the actions on the algorithm side, the
 action might not be understood in the same way. Similarly, features used by the
 supervisor to select actions might not be represented in the state used by the
 algorithm. And lastly, in the case of implicit selection of features, a single
-case of features representatin (for example highlighting two animals) might not
+case of features representatiion (for example highlighting two animals) might not
 be perceived in the same way by observers.
 
 
