@@ -10,6 +10,7 @@
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{comment}
 \usepackage{amssymb}
+\usepackage{subcaption}
 \frenchspacing  %Required
 \setlength{\pdfpagewidth}{8.5in}  %Required
 \setlength{\pdfpageheight}{11in}  %Required
@@ -339,15 +340,6 @@ highlighted for $s'$. When adding a new pairt $(s',r)$, we can discard all the
 previous pairs with an identical $s'$ to represent the evolution of the policy
 evaluation by the supervisor.
 
-When facing a new state $s$ where an action has to be
-selected, the agent can select an action following Algorithm~\ref{algo}. For
-each action $a \in \mathcal{A}$, we take the pair $(s',r)$ with the closest $s'$
-to the current state (as defined by normalised distance over the dimensions
-where $s'$ is defined). That way, each action $a$ can be associated to an
-expected reward defined by the product between the similarity of the closest
-partial-state known for $a$ and the reward obtained in that partial-state.
-Finally, the action with the highest expected reward can be selected.
-
 \begin{algorithm}
     \DontPrintSemicolon
     \SetKwInOut{Input}{inputs}\SetKwInOut{Output}{output}
@@ -368,6 +360,16 @@ Finally, the action with the highest expected reward can be selected.
     partial-state action rewards tuples and current state}
     \label{algo}
 \end{algorithm}
+
+
+When facing a new state $s$ where an action has to be
+selected, the agent can select an action following Algorithm~\ref{algo}. For
+each action $a \in \mathcal{A}$, we take the pair $(s',r)$ with the closest $s'$
+to the current state (as defined by normalised distance over the dimensions
+where $s'$ is defined). That way, each action $a$ can be associated to an
+expected reward defined by the product between the similarity of the closest
+partial-state known for $a$ and the reward obtained in that partial-state.
+Finally, the action with the highest expected reward can be selected.
 
 When selecting an action with following Algorithm~\ref{algo}, the agent can also use
 the dimensions of the similar state $s'$ used for the selection to indicate the
@@ -391,6 +393,56 @@ state to correct the features related to this action or cancel it, preventing th
 execution and associating a reward of -1.
 
 \section{Example of application}
+
+An example of application yet to be tested is robot for teaching to children.
+A robot can play an educative game with children to teach them notions about
+diverse topics according to the needs of the teacher. For this example, a child
+and a robot are playing a game about food web, teaching wich animals eat which
+ones on a Sandtray~\cite{baxter2012touchscreen} as shown in
+Figure~\ref{fig:game}. In addition to the child and
+the robot, an adult supervises the robot using a tablet with a Graphical User
+Interface (GUI) (Figure~\ref{fig:gui}) to teach the robot how to interact with the child.
+\begin{figure}
+        \centering
+  \includegraphics[width=80mm]{./fig/game.png} 
+    \caption{Game displayed on the Sandtray the child is playing with the robot.}
+        \label{fig:game}
+\end{figure}
+
+As shown in Figures \ref{fig:game} and \ref{fig:gui}, the GUI is an augmented
+version of the game itself, which can be use to make the robot move items on the
+game by dragging them on the GUI or which can display actions proposed by the
+robot with a cancel button to refuse an action. For example in
+Figure~\ref{fig:gui} the robot proposes to move the eagle to the rat, and
+highlight (as shown by blue circles) the eagle and the rat. This indicate that
+features relevant to the eagle and the rat have been used to select this action.
+\begin{figure}
+        \centering
+    \includegraphics[width=80mm]{./fig/proposition.png}
+    \caption{Interface for the supervisor with an action being proposed, moving
+        eagle to rat with highlight of eagle and rat.}
+        \label{fig:gui}
+\end{figure}
+
+
+In the current implementation, the state is defined by the distance between each
+animals and their life. With these features selected, the partial state
+transmitted to the user is the distance between the eagle, the eagle's life and
+the rat's life. Similarly, when selected an action, the supervisor can also
+select features in the state relevant to the selction.
+
+Limitations of the approach reside in the difference of
+representation of the state and action spaces between the supervisor and the
+algorithm and limits in the communication. For example a user could try to move
+an animal close to another one,
+and depending of the represenation of the actions on the algorithm side, the
+action might not be understood in the same way. Similarly, features used by the
+supervisor to select actions might not be represented in the state used by the
+algorithm. And lastly, in the case of implicit selection of features, a single
+case of features representatin (for example highlighting two animals) might not
+be perceived in the same way by observers.
+
+
 %===============================================================================
 \begin{comment}
 \section{Challenges}
