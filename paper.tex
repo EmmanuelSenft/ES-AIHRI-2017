@@ -47,19 +47,22 @@ United Kingdom\\
 %expectations. However at the design time, it seems hardly possible to
 %know in advance exactly all the behaviours expected from the robot. As such to
 %be accepted in human society robots have to learn how to interact with humans.
-Learning social interaction is a complex task. Firstly, no simulator of
-human interactions sufficiently precise exists today, so the learning will probably have
-to be made online and in the real world.
-This means that robots will have to learn directly from interacting with humans,
-which limits the quantity of datapoint possible to gather and make exploration
-riskier as actions will have real impacts on humans or the robot itself. Additionally,
-no clear reward function exists for social interactions. As such we argue that
-robots will highly profit from human expertise and guidance to learn social
-interactions. And as the quantity of data is limited, they also will have to make the most out of each datapoint. We
-propose to combine the Supervised Progressively Autonomous Robot Competencies
-allowing a safer online learning and Reinforcement Learning based on partial
-states rather than full states to accelerate the learning by using more
-information form the human teacher.
+    Learning social interactions is a complex task that robots will have to
+    master before being accepted in society. However, as no simulator of human
+    interactions sufficiently
+    precise exists today, the learning have to be made online and in the real
+    world. Actions executed by the robot have impact on humans, and as such
+    have to be carefully selected, making the reliance on random exploration not
+    applicable. Additionally, no clear reward function exists for
+    social interactions. This implies that classical approaches such as
+    Reinforcement Learning cannot be directly applied. As such we argue that
+    robots will highly profit from human expertise and guidance to learn social
+    interactions. And as the quantity of input a human can provide is limited,
+    new methods have to be designed to use more efficiently human inputs. We
+    combine the Supervised Progressively Autonomous Robot Competencies (SPARC)
+    allowing a safer online learning with Reinforcement Learning based on
+    partial states rather than full states to accelerate the learning by
+    collecting and using more information from the human teacher.
 \end{abstract}
 %===============================================================================
 
