@@ -75,19 +75,20 @@ of interaction. However, not all behaviours can be known in advance and be
 implemented in the robot before its deployment in the real world. Similarly to
  humans, robots need
 to be able to learn new tasks, new actions policies, new social norms and how
-to make sense of the world surrounding them.
+to make sense of the world surrounding them as they are interacting in the world.
 
 For a robot, interacting in the real world requires to combine inputs
  from many sensors to create a space composed of large number dimensions and
 select actions appropriated to the current space. However,
  parts of the state can be irrelevant to the current goal and are not required
- to be taken into account to select the current action. A successful action
- policy maps these features to the relevant actions.
+ to be taken into account to select the current action, only a limited number of
+ features in the space are important. To interact efficiently, a robot has to
+ learn to identify these features and associate them to related actions.
 
-These relevant features in the space can be encoded in the representation of
-the space the robot uses for action selection or be learnt. Recent successes in Deep
-Learning~\cite{lecun2015deep} have shown that complex features can be extracted
-by neural networks assuming that enough datapoints are available. 
+%These relevant features in the state space can be encoded in the representation of
+%the space the robot uses for action selection or be learnt. Recent successes in Deep
+%Learning~\cite{lecun2015deep} have shown that complex features can be extracted
+%by neural networks assuming that enough datapoints are available. 
 
 In previous work~\cite{senft2015sparc,senft2017supervised}, we introduced the
 Supervised Progressively Autonomous Robot Competencies (SPARC), as a way to
@@ -96,8 +97,8 @@ correcting actions about to be executed by the robot. In this paper, we propose
 to extend this approach to allow the supervisor to highlight features in the
 environment associated to the selected action. During the action selection
 phase, the robot can compare these features, defined as partial states, with the
-current state to select an action based on which previously identify
-features are currently in the environment.
+current state to select an action based on which previously identified
+features are currently in the environment and submit it to its supervisor.
 
 \begin{comment}
 This approach in especially relevant for HRI as gathering datapoints has to be
