@@ -479,18 +479,18 @@ learning for human use complex inputs:
 \end{comment}
 \section{Future work}
 
-This method still has to be tested in a real Human-Robot Interaction, and this
-evaluation is currently being implemented and will be tested in a near future.
+The system presented in the previous section will be improved and
+evaluated in the real world with children in the next months.
 
-The current work could be extended to allow the agent continue to improve its
-behaviour even in the absence of supervisor, progressively exploring around a learnt policy
-improving its policy beyond what have been taught. This
+The current work could also be extended to allow the agent continue to improve its
+behaviour even in the absence of supervisor, progressively exploring around the
+learnt policy improving its behaviour beyond the demonstrations. This
 could be done by allowing the supervisor to provide rewards during the learning
 phase, and combine these rewards with the demonstrations to learn a reward
 function in a fashion similar to Inverse Reinforcement Learning
 \cite{abbeel2004apprenticeship}. These could also use partial states associated
-to these rewards to have a general reward function despite a low number of
-datapoints.
+to these rewards to ease the generalisation of the reward function with only a
+low number of datapoints.
 But without the supervisor, the assumption that only a
 myopic action selection is sufficient would not hold anymore and the problem of
 delayed rewards would have to be tackled.
