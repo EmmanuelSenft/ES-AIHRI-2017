@@ -328,6 +328,13 @@ ${s'=[-,0.2,0,-]}$ with symbol '$-$' reprensenting the dimensions removed. For
 the learning algorithm, this means that the action $a$ has been evaluated $r$ in
 the partial state $s'$.  
 
+To each action
+$a \in \mathcal{A}$ we can associate a set $\mathcal{C}_{a}$ of pairs $(s',r)$
+representing the rating done by the supervisor to action $a$ with features
+highlighted for the multiple $s'$. When adding a new pairt $(s',r)$, we can discard potential
+previous pairs with an identical $s'$ to represent the evolution of the policy
+evaluation by the supervisor.
+
 \begin{algorithm}
     \DontPrintSemicolon
     \SetKwInOut{Input}{inputs}\SetKwInOut{Output}{output}
@@ -350,12 +357,6 @@ the partial state $s'$.
     \label{algo}
 \end{algorithm}
 
-To each action
-$a \in \mathcal{A}$ we can associate a set $\mathcal{C}_{a}$ of pairs $(s',r)$
-representing the rating done by the supervisor to action $a$ with features
-highlighted for the multiple $s'$. When adding a new pairt $(s',r)$, we can discard potential
-previous pairs with an identical $s'$ to represent the evolution of the policy
-evaluation by the supervisor.
 
 
 When facing a new state $s$ where an action has to be
@@ -389,14 +390,6 @@ reward of -1 to the partial state identified by the robot or the supervisor.
 
 \section{Application scenario}
 
-\begin{figure}
-        \centering
-  \includegraphics[width=60mm]{./figs/setup} 
-    \caption{Interaction setup: the child and the robot are interacting on the
-    touchscreen and a supervisor can control the robot using a GUI on a tablet.}
-        \label{fig:setup}
-\end{figure}
-
 
 An example of an application is a social robot which interacts with children in an educational scenario.
 The robot plays an educational game with children to teach them notions about
@@ -406,6 +399,15 @@ ones on a Sandtray~\cite{baxter2012touchscreen}. In addition to the child and
 the robot, an adult supervises the robot using a tablet with a Graphical User
 Interface (GUI) to teach the robot how to interact with the child as shown in
 Figure~\ref{fig:setup}.
+
+\begin{figure}
+        \centering
+  \includegraphics[width=60mm]{./figs/setup} 
+    \caption{Interaction setup: the child and the robot are interacting on the
+    touchscreen and a supervisor can control the robot using a GUI on a tablet.}
+        \label{fig:setup}
+\end{figure}
+
 
 The GUI (Figure \ref{fig:gui}) is an augmented
 version of the game itself, which can be use to make the robot move items on the
