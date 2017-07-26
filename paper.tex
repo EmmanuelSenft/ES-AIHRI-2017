@@ -328,13 +328,6 @@ ${s'=[-,0.2,0,-]}$ with symbol '$-$' reprensenting the dimensions removed. For
 the learning algorithm, this means that the action $a$ has been evaluated $r$ in
 the partial state $s'$.  
 
-To each action
-$a \in \mathcal{A}$ we can associate a set $\mathcal{C}_{a}$ of pairs $(s',r)$
-representing the rating done by the supervisor to action $a$ with features
-highlighted for the multiple $s'$. When adding a new pairt $(s',r)$, we can discard potential
-previous pairs with an identical $s'$ to represent the evolution of the policy
-evaluation by the supervisor.
-
 \begin{algorithm}
     \DontPrintSemicolon
     \SetKwInOut{Input}{inputs}\SetKwInOut{Output}{output}
@@ -356,6 +349,13 @@ evaluation by the supervisor.
     (partial state, action, reward) tuples and the current state.}
     \label{algo}
 \end{algorithm}
+
+To each action
+$a \in \mathcal{A}$ we can associate a set $\mathcal{C}_{a}$ of pairs $(s',r)$
+representing the rating done by the supervisor to action $a$ with features
+highlighted for the multiple $s'$. When adding a new pairt $(s',r)$, we can discard potential
+previous pairs with an identical $s'$ to represent the evolution of the policy
+evaluation by the supervisor.
 
 
 When facing a new state $s$ where an action has to be
@@ -389,14 +389,6 @@ reward of -1 to the partial state identified by the robot or the supervisor.
 
 \section{Application scenario}
 
-An example of an application is a social robot which interacts with children in an educational scenario.
-The robot plays an educational game with children to teach them notions about
-diverse topics according to the needs of the teacher. For this example, a child
-and a robot are playing a game about the food web, teaching wich animals eat which
-ones on a Sandtray~\cite{baxter2012touchscreen}. In addition to the child and
-the robot, an adult supervises the robot using a tablet with a Graphical User
-Interface (GUI) to teach the robot how to interact with the child as shown in
-Figure~\ref{fig:setup}.
 \begin{figure}
         \centering
   \includegraphics[width=60mm]{./figs/setup} 
@@ -405,7 +397,17 @@ Figure~\ref{fig:setup}.
         \label{fig:setup}
 \end{figure}
 
-The GUI (shown in Figure \ref{fig:gui} is an augmented
+
+An example of an application is a social robot which interacts with children in an educational scenario.
+The robot plays an educational game with children to teach them notions about
+diverse topics according to the needs of the teacher. For this example, a child
+and a robot are playing a game about the food web, teaching wich animals eat which
+ones on a Sandtray~\cite{baxter2012touchscreen}. In addition to the child and
+the robot, an adult supervises the robot using a tablet with a Graphical User
+Interface (GUI) to teach the robot how to interact with the child as shown in
+Figure~\ref{fig:setup}.
+
+The GUI (Figure \ref{fig:gui}) is an augmented
 version of the game itself, which can be use to make the robot move items on the
 game by dragging them on the GUI or which can display actions proposed by the
 robot with a cancel button to refuse an action. For example in
