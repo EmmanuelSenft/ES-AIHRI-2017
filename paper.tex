@@ -47,7 +47,7 @@ United Kingdom\\
 %expectations. However at the design time, it seems hardly possible to
 %know in advance exactly all the behaviours expected from the robot. As such to
 %be accepted in human society robots have to learn how to interact with humans.
-    Social interacting is a complex task for which machine learrning holds particular promise. However, as no sufficiently
+    Social interacting is a complex task for which machine learning holds particular promise. However, as no sufficiently
     accurate simulator of human interactions exists today, the learning of social interaction strategies has to happen online in the real
     world. Actions executed by the robot impact on humans, and as such
     have to be carefully selected, making it impossible to rely on random exploration. Additionally, no clear reward function exists for
@@ -56,7 +56,7 @@ United Kingdom\\
     interact with the social world. As such we argue that
     robots will profit from human expertise and guidance to learn social
     interactions. And as the quantity of input a human can provide is limited,
-    new methods have to be designed to use human input more efficiently. In this paper we describe a setpu in which We
+    new methods have to be designed to use human input more efficiently. In this paper we describe a setup in which We
     combine a framework called Supervised Progressively Autonomous Robot Competencies (SPARC), which
     allows safer online learning with Reinforcement Learning, with the use
     partial states rather than full states to accelerate generalisation and
@@ -71,7 +71,7 @@ contexts. Robot are expected to behave appropriately regardless of the domain
 of interaction. However, it is impossible to foresee all possible interaction outcomes in dynamic and open social domains, as such the robot's responses cannot be implemented in the robot before its deployment in the real world. Similar to
 how people learn, robots need to be able to learn how to complete tasks through learning and optimising action policies. This including learning social norms and how to make sense of the social world.
 
-For a robot, interacting in the real world often requires taking in a diverse and large range of sensory inputs, which results in a high-dimensional sensory space. The robots then is required to select actions based on its current state in sensor space. However,
+For a robot, interacting in the real world often requires taking in a diverse and large range of sensory inputs, which results in a high-dimensional sensory space. The robot then is required to select actions based on its current state in sensor space. However,
  parts of the state can be irrelevant to the current goal, and
  as such should not be taken into account when selecting the current action. Often, only a limited number of
  features in the space are important. To interact efficiently, a robot has to
@@ -89,7 +89,7 @@ intervening and correcting actions before they were executed by the robot. In th
 to extend this approach to allow the supervisor to highlight features in the
 environment relevant for the selected action. During the action selection
 phase, the robot can compare these features, defined as partial states, with the
-current state to select an action. The selected is presented to the human supervisor, who can either correct the action or approve it for execution.
+current state to select an action. The selected action is presented to the human supervisor, who can either correct the action or approve it for execution.
 
 \begin{comment}
 This approach in especially relevant for HRI as gathering datapoints has to be
@@ -150,7 +150,7 @@ efficient action policy. This knowledge, originating from human expertise, can
 be exploited in many ways. 
 
 \subsubsection{Design decisions:}
-Initial knowledge has to be use in the design of the algorithm, the
+Initial knowledge has to be used in the design of the algorithm, the
 representation of the state and actions spaces and the reward funtion. For
 example, only carefully crafted features allowed
 Tesauro to improve its algorithm for Backgammon from a intermediate-level player
@@ -269,7 +269,7 @@ networks to learn a the value function.
 These approaches rely on having a large number of
 datapoints to converge toward a good function approximator. However, 
  in many applications and especially in HRI, these amounts of data are not
-available or obtainable due to practical constraints. Furthermore, human responses are often noisy and lack consistency, so methods are needed which can generalise from a low number of noise data points.
+available or obtainable due to practical constraints. Furthermore, human responses are often noisy and lack consistency, so methods are needed which can generalise from a low number of noisy data points.
 
 %In \cite{sutton1996generalisation}, Sutton proposed to use sparse coarse
 %coding
@@ -380,7 +380,7 @@ executed, the supervisor can also select which features in the environment
 should be selected as the partial state, and this associates the reward 
 to this action in this partial state. Similarly, when an action is
 proposed to the supervisor the features represented by the dimensions of the
-closest partial state can be exposed to the supervisor as a way to explain why
+closest partial state for this action can be exposed to the supervisor as a way to explain why
 this action has been selected. Facing this, the supervisor can: (1) not react,
 allowing the action to be executed and associating a reward of +1 to the partial
 state and the action proposed, (2) change the partial state to correct the features
@@ -415,7 +415,7 @@ features relevant to the eagle and the rat have been used to select this action.
         \centering
     \includegraphics[width=80mm]{./fig/proposition.png}
     \caption{Interface for the supervisor with an action being proposed, moving
-        eagle to rat with highlight of eagle and rat.}
+        the eagle to the rat with highlight of the eagle and the rat.}
         \label{fig:gui}
 \end{figure}
 
