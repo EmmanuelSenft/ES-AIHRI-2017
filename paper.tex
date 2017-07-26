@@ -393,38 +393,41 @@ An example of an application is a social robot which interacts with children in 
 The robot plays an educational game with children to teach them notions about
 diverse topics according to the needs of the teacher. For this example, a child
 and a robot are playing a game about the food web, teaching wich animals eat which
-ones on a Sandtray~\cite{baxter2012touchscreen} as shown in
-Figure~\ref{fig:game}. In addition to the child and
+ones on a Sandtray~\cite{baxter2012touchscreen}. In addition to the child and
 the robot, an adult supervises the robot using a tablet with a Graphical User
-Interface (GUI) (Figure~\ref{fig:gui}) to teach the robot how to interact with the child.
+Interface (GUI) to teach the robot how to interact with the child as shown in
+Figure~\ref{fig:setup}.
 \begin{figure}
         \centering
-  \includegraphics[width=80mm]{./fig/game.png} 
-    \caption{Game displayed on the Sandtray the child is playing with the robot.}
-        \label{fig:game}
+  \includegraphics[width=60mm]{./figs/setup} 
+    \caption{Interaction setup: the child and the robot are interacting on the
+    touchscreen and a supervisor can control the robot using a GUI on a tablet.}
+        \label{fig:setup}
 \end{figure}
 
-As shown in Figures \ref{fig:game} and \ref{fig:gui}, the GUI is an augmented
+The GUI (shown in Figure \ref{fig:gui} is an augmented
 version of the game itself, which can be use to make the robot move items on the
 game by dragging them on the GUI or which can display actions proposed by the
 robot with a cancel button to refuse an action. For example in
 Figure~\ref{fig:gui} the robot proposes to move the eagle to the rat, and
 highlight (as shown by blue circles) the eagle and the rat. This indicate that
 features relevant to the eagle and the rat have been used to select this action.
+
+In the current implementation, the state is defined by the distance between each
+animal and their energy. With these features selected, the partial state
+transmitted to the user is the distance between the eagle and the rat, the
+eagle's energy and
+the rat's energy. Similarly, when selecting an action, the supervisor can 
+select features in the state relevant to the action.
+
 \begin{figure}
         \centering
-    \includegraphics[width=80mm]{./fig/proposition.png}
+    \includegraphics[width=60mm]{./figs/proposition.png}
     \caption{Interface for the supervisor with an action being proposed, moving
         the eagle to the rat with highlight of the eagle and the rat.}
         \label{fig:gui}
 \end{figure}
 
-
-In the current implementation, the state is defined by the distance between each
-animal and their life. With these features selected, the partial state
-transmitted to the user is the distance between the eagle and the rat, the eagle's life and
-the rat's life. Similarly, when selecting an action, the supervisor can 
-select features in the state relevant to the action.
 
 The main limitations of the approach reside in the difference of
 representation of the state and action spaces between the supervisor and the
