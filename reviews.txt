@@ -1,0 +1,87 @@
+----------------------- REVIEW 1 ---------------------
+PAPER: 10
+TITLE: Toward Supervised Reinforcement Learning with Partial States for Social HRI
+AUTHORS: Emmanuel Senft, Séverin Lemaignan, Paul Baxter and Tony Belpaeme
+
+Overall evaluation: 1 (weak accept)
+
+----------- Overall evaluation -----------
+The paper provides a way for human trainers to help robotic systems learn. Previous work by the authors introduces SPARC, which gives a human trainer the ability to intervene during the learner's action sequence to provide immediate action feedback. The new idea here is "partial states", which is really a kind of state abstraction or variable selection. The extension of SPARC allows the trainer the ability to annotate feedback with which features to pay attention to. It suggests that they will do future work in which trainers are given this control. I would guess that controlling this kind of abstraction property is reasonable and likely to be powerful. However, these results are not included in the current submission.
+
+Detailed comments:
+
+The SPARC interaction seems a lot like that of Walsh et al.'s apprenticeship learning work (ICML 2010).
+
+"classical approaches such as Reinforcement Learning cannot be directly applied": RL is not something that is applied or not
+applied. It's a problem. (Later, the paper calls it a "framework, which seems apt.)
+
+"in which We" -> "in which we"
+
+"Similar to how people learn, robots need to be able to learn how to complete tasks through learning and optimising action policies. This including learning social norms": Maybe too many "learns" (4)?
+
+"With this approach the teacher can adapt the rewards": That's not how TAMER works, but COACH is explicitly designed for that kind of training (see McGlashan et al. ICML 2017).
+
+"a an" -> "an".
+
+Figure 1 needs more explanation, in my opinion.
+
+"explicitely or implicitely" -> "explicitly or implicitly".
+
+"pairt"
+
+Algorithm 1 seems very reminiscent of instance-based RL algorithms. Can you describe the relationship? I don't think that class of algorithms is being cited here.
+
+"wich" -> "which"
+
+
+----------------------- REVIEW 2 ---------------------
+PAPER: 10
+TITLE: Toward Supervised Reinforcement Learning with Partial States for Social HRI
+AUTHORS: Emmanuel Senft, Séverin Lemaignan, Paul Baxter and Tony Belpaeme
+
+Overall evaluation: -2 (reject)
+
+----------- Overall evaluation -----------
+Summary:
+The authors propose an approach to interactive reinforcement learning which uses a form of feature selection obtaining partial states to generalize the reward provided by the teacher. At each step, the agent proposes an action based on the maximum expected reward which the teacher can then accept or reject as well as rate by assigning a reward. This reward is not assigned to the concrete state but rather to a subset of features that are selected by the teacher as well. The maximum expected reward is calculated by using the reward of the closest state, where the distance metric used is the Euclidean distance on the selected features. The authors furthermore propose to use this approach in a LfD scenario where selected actions are given a +1 reward and rejected actions a -1 reward. The approach is not evaluated on any experiments but a compelling experiment is being proposed.
+
+Review:
+* The authors position the paper as an interactive reinforcement learning paper. However, the “myopic” approach pursued in this work has a closer resemblance to bandit approaches where the exploration is replaced by a human teacher. The reasoning for such an approach is that humans can and will estimate future rewards. This line of reasoning is not new and doesn’t need to be justified anew but a citation is certainly necessary.
+* To select actions, the authors choose to learn the reward function directly using a 1-nearest-neighbor approach with human feature selection. The idea to use humans for feature selection has merit (“An HRI Approach to Feature Selection”, Bullard et al. 2016) but it is unclear if the feature selection can be used per example, as the authors propose. Euclidean distance measures in different spaces are not generally comparable and this problem is aggravated when comparing Euclidean distances in spaces with different dimensionality. It seems to me that this issue should be addressed.
+* The related works section draws connections to various fields of interactive machine learning and a full review of all those fields is likely infeasible, however space permitting more recent work in the field of interactive reinforcement learning such as (“Reinforcement Learning Via Practice and Critique Advice”, Judah et al 2010) and (“Policy Shaping: Integrating Human Feedback with Reinforcement Learning, Griffith et al. 2013) as well as, given the audience, LfD work in robotics could be added.
+* The method can be used to gradually transfer control from the human teacher to the robot in an interactive LfD type of scenario. How does this compare to DAGGER and related work? (“Efficient Reductions for Imitation Learning”, Ross and Bagnell 2010; “A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning”, Ross et al. 2011, etc.)
+* The notation in Algorithm 1 is unclear. What is max(\Delta)? Furthermore the use of r(argmax …) is inconsistent with r(\Delta(p)) being defined beneath this line.
+* Some minor errors:
+** “This including learning …” -> “This includes learning” in the introduction
+** “pairt” -> “pair” in “Learning algorithm”
+
+
+----------------------- REVIEW 3 ---------------------
+PAPER: 10
+TITLE: Toward Supervised Reinforcement Learning with Partial States for Social HRI
+AUTHORS: Emmanuel Senft, Séverin Lemaignan, Paul Baxter and Tony Belpaeme
+
+Overall evaluation: 0 (borderline paper)
+
+----------- Overall evaluation -----------
+============================
+=======  META REVIEW  =======
+============================
+
+This paper focuses on the use of human guidance for a robot learning task-oriented social behaviors.  The authors propose an interactive reinforcement learning approach with the use of partial states obtained from human feedback, which contain only salient features (for improved efficiency of the RL algorithm). 
+
+Generally speaking, both reviewers believe the problem being considered is interesting and very relevant to the AI-HRI community, but have contrasting perspectives on whether to accept this paper.  Overall, the contribution of the work needs to better situated with respect to prior work in the field and the feasibility of the proposed approach is unclear.  
+
+Overall strengths, as identified by the reviewers, and suggestions for improvement are summarized below.
+
+Identified strengths, according to the reviewers:
+ + Problem being considered is potentially powerful/impactful and very relevant to AI-HRI community
+ + Approach is technically sound.
+
+I would suggest that the authors improve their submission, including the following:
+ - Results are needed to support the position and would greatly increase the impact of the claims.
+ - There are questions as to the feasibility of the approach.
+ - May be helpful to clarify how SPARC interaction is distinct from apprenticeship learning work, in order to better situate the contribution.
+ - Also. There is some very relevant prior work excluded from paper citations.  Many of those are listed in the individual reviews.  Additionally, previous work done on interactive policy learning (Chernova, 2009) for guiding a robot to learn the expert’s policy and state abstraction from demonstration (Cobo et al, 2011) which focuses on enabling a robot to learn state abstraction (extracting discriminative features for representing the state) and then using the state abstraction to speed up an RL algorithm seem very relevant to the work presented.  Situating the contribution with respect to all of this work is suggested.
+
+Additional details can be found in the individual reviews.
