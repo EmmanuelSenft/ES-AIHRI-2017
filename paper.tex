@@ -40,12 +40,10 @@ United Kingdom\\
  \And Tony Belpaeme\\
  CRNS\\ Plymouth University (UK) \\ ID Lab -- imec \\ Ghent University (BE)}
 
-\maketitle \begin{abstract}
-%As robots will integrate human society, they will have to satify humans'
-    %expectations. However at the design time, it seems hardly possible to know
-    %in advance exactly all the behaviours expected from the robot. As such to
-    %be accepted in human society robots have to learn how to interact with
-    %humans.
+\maketitle 
+
+\begin{abstract}
+
     Social interacting is a complex task for which machine learning holds
     particular promise. However, as no sufficiently accurate simulator of human
     interactions exists today, the learning of social interaction strategies has
@@ -62,7 +60,8 @@ United Kingdom\\
     Autonomous Robot Competencies (SPARC), which allows safer online learning
     with Reinforcement Learning, with the use partial states rather than full
     states to accelerate generalisation and obtain more quickly a usable action
-    policy.  
+    policy.
+
 \end{abstract}
 %===============================================================================
 
@@ -75,7 +74,7 @@ Human-Robot Interaction (HRI) studies how people and robot can co-exist in
  outcomes in dynamic and open social domains, as such the robot's responses
  cannot be implemented in the robot before its deployment in the real world.
  Similarly to  people, robots need to be able to learn how to complete tasks
- throug creating and optimising action policies. This includes learning social
+ through creating and optimising action policies. This includes learning social
  norms and how to make sense of the social world.
 
 For a robot, interacting in the real world often requires taking in a diverse
@@ -87,11 +86,6 @@ For a robot, interacting in the real world often requires taking in a diverse
  interact efficiently, a robot has to learn to identify these salient features
  and associate them with appropriate actions.
 
-%These relevant features in the state space can be encoded in the representation of
-%the space the robot uses for action selection or be learnt. Recent successes in Deep
-%Learning~\cite{lecun2015deep} have shown that complex features can be extracted
-%by neural networks assuming that enough datapoints are available. 
-
 In previous work~\cite{senft2015sparc,senft2017supervised}, we introduced the
 Supervised Progressively Autonomous Robot Competencies (SPARC), a way to teach a
 robot an action policy while interacting based on a human supervisor intervening
@@ -102,7 +96,7 @@ phase, the robot can compare these features, defined as partial states, with the
 current state to select an action. The selected action is presented to the human
 supervisor, who can either correct the action or approve it for execution.
 
-===============================================================================
+%===============================================================================
 
 \section{Background}
 \subsection{Reinforcement Learning}
@@ -114,8 +108,6 @@ interacting in an environment receives numerical rewards in reaction to its
 actions. The agent subsequently learns an action policy to maximise the expected
 cummulative discounted reward.
 
-%Classic approaches in RL generally rely on exploring virtual environments where
-%the agent tries to maximise the reward.
 In many cases where RL achieves success, the agent has access to a virtual
 environment where the only real cost of exploring is computational effort: the
 agent can interact as long as needed to gather enough information on the
@@ -135,29 +127,30 @@ efficient action policy. This knowledge, originating from human expertise, can
 be exploited in many ways. 
 
 \subsubsection{Design decisions:}
+
 Initial knowledge has to be used in the design of the algorithm, the
 representation of the state and actions spaces and the reward funtion. For
-example, only carefully crafted features allowed
-Tesauro to improve its algorithm for Backgammon from a intermediate-level player
-to super-human level~\cite{tesauro1995temporal}. Similarly, the design of
-complex neural networks for state generalisation, the representation of actions
-as motor primitives rather than raw motor angles or adding additional
-information in the reward function have important impacts on the ability of
-the robot to reach a successful policy~\cite{kober2013reinforcement}.
+example, only carefully crafted features allowed Tesauro to improve its
+algorithm for Backgammon from a intermediate-level player to super-human
+level~\cite{tesauro1995temporal}. Similarly, the design of complex neural
+networks for state generalisation, the representation of actions as motor
+primitives rather than raw motor angles or adding additional information in the
+reward function have important impacts on the ability of the robot to reach a
+successful policy~\cite{kober2013reinforcement}.
 
 \subsubsection{Demonstrations:} 
-Initial knowledge can be provided to the agent
-through demonstrations. These demonstrations can be used to create an initial
-policy which is sufficiently efficient to start interacting in the environment
-and gather information to improve over time. This initial policy, required to
-receive meaningful feedback from the environment can be impossible to reach by
-relying only on random exploration and feedback from the environment. For
-example the game of Go in its larger board size contains more than $10^{210}$
-states, so exhaustive search is not possible.  Silver et al.
-\cite{silver2016mastering} started with supervised learning from Go masters'
-games to learn a decent enough policy and then proceeded using deep learning,
-self play and tree search to achieve super-human capabilities and beating the
-best human players.
+
+Initial knowledge can be provided to the agent through demonstrations. These
+demonstrations can be used to create an initial policy which is sufficiently
+efficient to start interacting in the environment and gather information to
+improve over time. This initial policy, required to receive meaningful feedback
+from the environment can be impossible to reach by relying only on random
+exploration and feedback from the environment. For example the game of Go in its
+larger board size contains more than $10^{210}$ states, so exhaustive search is
+not possible.  Silver et al.~\cite{silver2016mastering} started with supervised
+learning from Go masters' games to learn a decent enough policy and then
+proceeded using deep learning, self play and tree search to achieve super-human
+capabilities and beating the best human players.
 
 These demonstrations can also be used to learn a reward function. With Inverse
 Reinforcement Learning, the agent is not provided with a reward function, but
@@ -168,16 +161,17 @@ helicopter~\cite{abbeel2004apprenticeship} based on demonstrations from experts
 and further exploration and autonomous learning.
 
 \subsubsection{Guiding the learning:}
+
 Rather than solely providing initial knowledge to the agents, humans can also
 guide the agent during its learning, a method more resembling human teaching. 
 
 A first approach consists in sequencing the tasks the robot will face.  This
-approach, known as ``scaffolding'' \cite{saunders2006teaching}, progressively
+approach, known as ``scaffolding''~\cite{saunders2006teaching}, progressively
 increases the difficulty and complexity of the task as the robot is learning to
 reach policies which would take prohibitively long without scaffolding.
 
 Approaches from animal conditioning have also been transfered to Machine
-Learning.  For example, the TAMER framework~\cite{knox2009interactively} is an
+Learning. For example, the TAMER framework~\cite{knox2009interactively} is an
 adaptation of ``shaping'', tuning an animal's behaviour by providing rewards to
 guide it to the desired behaviour. Unlike other RL setups, with TAMER, the
 reward is not provided by the environment but by a human observer. With this
@@ -194,7 +188,7 @@ agent should pay attention to, or what action it should take next. They show
 that giving the power to the supervisor to bias the action selection can improve
 the learning, making it faster and safer.
 
-In \cite{senft2015sparc}, we introduced the Supervised Progressively Autonomous
+In~\cite{senft2015sparc}, we introduced the Supervised Progressively Autonomous
 Robot Competencies (SPARC). SPARC relies on a supervisor with the ability to
 control the robot's actions. This supervisor is presented with the action the
 robot is about to execute. He can then choose to cancel it, allow it to be
@@ -218,17 +212,10 @@ feedback based learning as illustrated in Figure~\ref{fig:comparison}.
     \label{fig:comparison}
 \end{figure}
 
-%SPARC has been designed with the idea of teaching a robot to interact with humans,
-%it is specially usefull when the frequency of action selection is low (less than
-%1Hz) so action can be evaluated by a human before being executed, when the agent
-%has to learn with a limited number of datapoints and when
-%undesired actions executed by an agent can have a high cost and are to be
-%avoided. 
-
-In \cite{senft2017supervised}, we presented a way to combine SPARC and RL, by
+In~\cite{senft2017supervised}, we presented a way to combine SPARC and RL, by
 assigning a positive reward to every action executed by the robot, making the
 assumption that every action has been explicitly or implicitely approved by the
-supervisor. However this method was  directly mapping a single (state, action)
+supervisor. However this method was directly mapping a single (state, action)
 pair to a reward without making use of any kind of generalisation. As such it
 was not applicable to environments with a continuous or high dimensional space
 or non-deterministic transitions from one state to another, elements which are
@@ -237,19 +224,14 @@ typically present in social interactions.
 \section{Partial State Supervised Reinforcement Learning}
 
 To make RL applicable in high dimensional or continuous states, the algorithm
-requires a way to generalise knowledge to unseen states.  A classic approach is
+requires a way to generalise knowledge to unseen states. A classic approach is
 to use a feed-forward neural network or to use deep reinforcement learning
-relying on deep neural networks to learn a the value function.  These approaches
+relying on deep neural networks to learn a the value function. These approaches
 rely on having a large number of datapoints to converge toward a good function
 approximator. However, in many applications and especially in HRI, these amounts
 of data are not available or obtainable due to practical constraints.
 Furthermore, human responses are often noisy and lack consistency, so methods
 are needed which can generalise from a low number of noisy data points.
-
-%In \cite{sutton1996generalisation}, Sutton proposed to use sparse coarse
-%coding
-%dividing the state in slices and tiles as a way to generalise quickly for
-%continuous spaces in RL. 
 
 In this paper we propose to use a human user to highlight the relevant features
 of the environment to reduce the state dimension of the points only to relevant
@@ -330,7 +312,7 @@ Finally, the action with the highest expected reward can be selected.
 
 \subsection{Combination with SPARC}
 
-SPARC has been shown to be compatible with RL in \cite{senft2017supervised}, and
+SPARC has been shown to be compatible with RL in~\cite{senft2017supervised}, and
 can also be easily combined with the approach presented in this paper using
 partial states. For example, when selecting an action for the robot to be
 executed, the supervisor can also select which features in the environment
@@ -366,13 +348,13 @@ with the child as shown in Figure~\ref{fig:setup}.
 \end{figure}
 
 
-The GUI (Figure \ref{fig:gui}) is an augmented
-version of the game itself, which can be use to make the robot move items on the
-game by dragging them on the GUI or which can display actions proposed by the
-robot with a cancel button to refuse an action. For example in
-Figure~\ref{fig:gui} the robot proposes to move the eagle to the rat, and
-highlight (as shown by blue circles) the eagle and the rat. This indicate that
-features relevant to the eagle and the rat have been used to select this action.
+The GUI (Figure~\ref{fig:gui}) is an augmented version of the game itself, which
+can be use to make the robot move items on the game by dragging them on the GUI
+or which can display actions proposed by the robot with a cancel button to
+refuse an action. For example in Figure~\ref{fig:gui} the robot proposes to move
+the eagle to the rat, and highlight (as shown by blue circles) the eagle and the
+rat. This indicate that features relevant to the eagle and the rat have been
+used to select this action.
 
 In the current implementation, the state is defined by the distance between each
 animal and their energy. With these features selected, the partial state
@@ -409,23 +391,22 @@ The system presented in the previous section will be improved and
 evaluated in the real world with children in the next months.
 
 The current work could also be extended to allow the agent to continue to
-    improve its behaviour even in the absence of a supervisor, progressively
-    exploring around the learnt policy improving its behaviour beyond the
-    demonstrations. This could be done by allowing the supervisor to provide
-    rewards during the learning phase and combine these rewards with the
-    demonstrations to learn a reward function in a fashion similar to Inverse
-    Reinforcement Learning \cite{abbeel2004apprenticeship} or TAMER
-    \cite{knox2009interactively}. This could also use partial states associated
-    to these rewards to ease the generalisation of the reward function with only
-    a low number of datapoints.  But without the supervisor, the assumption that
-    only a myopic action selection is sufficient would not hold anymore and the
-    problem of delayed rewards would have to be tackled.
-%===============================================================================
-    %\section{Conclusion} \label{sec:conclusion}
-    %==============================================================================
+improve its behaviour even in the absence of a supervisor, progressively
+exploring around the learnt policy improving its behaviour beyond the
+demonstrations. This could be done by allowing the supervisor to provide rewards
+during the learning phase and combine these rewards with the demonstrations to
+learn a reward function in a fashion similar to Inverse Reinforcement
+Learning~\cite{abbeel2004apprenticeship} or TAMER ~\cite{knox2009interactively}.
+This could also use partial states associated to these rewards to ease the
+generalisation of the reward function with only a low number of datapoints.  But
+without the supervisor, the assumption that only a myopic action selection is
+sufficient would not hold anymore and the problem of delayed rewards would have
+to be tackled.
+
+%==============================================================================
 \section{Acknowledgments} This work was supported by the EU FP7 DREAM project
-    (grant no.  611391) and EU H2020 Marie Sklodowska-Curie Actions project
-    DoRoThy (grant 657227).  
+(grant no.  611391) and EU H2020 Marie Sklodowska-Curie Actions project DoRoThy
+(grant 657227).  
 
 \bibliographystyle{aaai} \bibliography{biblio}
 \end{document}
