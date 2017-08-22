@@ -174,12 +174,16 @@ Approaches from animal conditioning have also been transfered to Machine
 Learning. For example, the TAMER framework~\cite{knox2009interactively} is an
 adaptation of ``shaping'', tuning an animal's behaviour by providing rewards to
 guide it to the desired behaviour. Unlike other RL setups, with TAMER, the
-reward is not provided by the environment but by a human observer. With this
-approach the teacher can adapt the rewards to the current policy and performance
-of the agent, for example starting to positively reward suboptimal behaviours
-that are better than the current policy and later, as the agent improves its
-behaviour, reward these same suboptimal behaviours negatively and only the
-optimal ones positively.
+reward is not provided by the environment but by a human observer. TAMER derives
+a reward function from the human feedbacks and uses this function to evaluate
+the current behaviour. In a similar approach, MacGlashan et al. proposed COACH
+in~\cite{macglashan2017interactive}. COACH assumes that human rewards represent
+the advantage function, i.e. how much the current action is better than the
+current policy. With COACH, the teacher can adapt the rewards to the current
+policy and performance of the agent, for example starting to positively reward
+suboptimal behaviours that are better than the current policy and later, as the
+agent improves its behaviour, reward these same suboptimal behaviours negatively
+and only the optimal ones positively.
 
 Another approach to guide the learning is to bias the action selection.
 In~\cite{thomaz2008teachable}, the authors propose to use a human supervisor to
@@ -201,14 +205,26 @@ SPARC gives control of the robot's actions to an expert, who can guide the
 exploration in the desired part of the environment which ensures the robot's
 behaviour is consistently appropriate. As the exploration is guided, and all the
 actions are useful, the learning can be faster than autonomous learning or
-feedback based learning as illustrated in Figure~\ref{fig:comparison}.
+learning based on human feedback as illustrated in Figure~\ref{fig:comparison}.
+In Autonomous Learning, the agent has first to discover its environment to start
+gathering relevant feedbacks, leading to a low initial performance and a slow
+improvement in early stage of learning. With a teaching based on human
+feedbacks, the teacher can quickly provide feedbacks on actions to reach more
+quickly an efficient policy. However, as the teacher only provide feedbacks and
+cannot prevent the agent to make mistakes, the initial performance can be poor.
+On the other hand, SPARC, with the control of the teacher over the executed
+actions can prevent the agent to make mistakes in early stages, achieving a high
+performance even at the start of the learning. The total blending between
+autonomous execution of actions and demonstrations and the control over
+\emph{every} actions executed by the agent are the specificities of SPARC
+compared to other approaches using humans to guide the learning of an agent.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{./figs/motivation.pdf}
     \caption{An illustration of the evolution over time of the performance,
     autonomy and human workload for an autonomous learner, an approach using
-    human rewards, and SPARC.}
+    human feedbacks, and SPARC.}
     \label{fig:comparison}
 \end{figure}
 
@@ -219,17 +235,23 @@ supervisor. However this method was directly mapping a single (state, action)
 pair to a reward without making use of any kind of generalisation. As such it
 was not applicable to environments with a continuous or high dimensional space
 or non-deterministic transitions from one state to another, elements which are
-typically present in social interactions.
+typically present in social interactions. Similarly to TAMER or COACH, this
+approach allows to reproduce an action policy from a teacher even in the absence
+of a reward function, but as the teacher has control over the robot actions, the
+learning can be faster and safer.
 
 \section{Partial State Supervised Reinforcement Learning}
 
 To make RL applicable in high dimensional or continuous states, the algorithm
 requires a way to generalise knowledge to unseen states. A classic approach is
-to use a feed-forward neural network or to use deep reinforcement learning
-relying on deep neural networks to learn a the value function. These approaches
-rely on having a large number of datapoints to converge toward a good function
-approximator. However, in many applications and especially in HRI, these amounts
-of data are not available or obtainable due to practical constraints.
+to use a feed-forward neural network or deep learning to learn a the value
+function generalising to unseen states. Neural network rely on having a large
+number of datapoints to converge toward a good function approximator.
+Alternatively, Cobo et al. proposed in~\cite{cobo2011automatic} to abstract
+features automaticly from demonstrations to learn faster. But even in this case,
+the number of datapoints required is still high (around 1000 samples per
+participants). However, in many applications and especially in HRI, these
+amounts of data are not available or obtainable due to practical constraints.
 Furthermore, human responses are often noisy and lack consistency, so methods
 are needed which can generalise from a low number of noisy data points.
 
@@ -250,7 +272,7 @@ this partial state.
 
 As the supervisor can estimate the future impacts of an action, the problem of
 credit assignment for delayed rewards can be ignored which allows us to consider
-only a myopic approach. 
+only a myopic approach in a fashion similar to TAMER~\cite{knox2009interactively}. 
 
 For this paper, we will reuse the formalism of rewardless Markov Decision
 Process to identify the different elements of our system. The agent has access
@@ -283,9 +305,11 @@ evolution of the policy evaluation by the supervisor.
             compute similarity $\Delta$ between $s$ and $s'$:
             $\Delta(p)=1-\frac{\sum_{i}^{n'}(s'(i)-s(i))^{2}}{n'}$
         }
-        compute expected reward $\hat{r}(a)$ for taking $a$ in $s$:
-        $\hat{r}(a) = max(\Delta) \cdot r(arg\, max_{p} \Delta(p))$\\
-        with $r(\Delta(p))$ the reward of $p = (s',r)$ 
+        find closest pair $\hat{p}$:\\
+        $\hat{p} = arg\, max_{p} \Delta(p)$\\
+        compute expected reward $\hat{r}(a)$ for taking $a$ in $s$:\\
+        $\hat{r}(a) = \Delta (\hat{p}) \cdot r(\hat{p})$\\
+        with $r(p)$ the reward of $p = (s',r)$ 
     }
     Select the action with the maximum expected reward:
     $\pi(s) = arg\, max_{a} \hat{r}(a)$
@@ -295,16 +319,20 @@ evolution of the policy evaluation by the supervisor.
     \label{algo}
 \end{algorithm}
 
-
-
 When facing a new state $s$ where an action has to be selected, the agent can
-select an action following Algorithm~\ref{algo}. For each action $a \in
-\mathcal{A}$, we take the pair $(s',r)$ with the closest $s'$ to the current
-state (as defined by normalised distance over the dimensions where $s'$ is
-defined). That way, each action $a$ can be associated to an expected reward
-defined by the product between the similarity of the closest partial state known
-for $a$ and the reward obtained for executing $a$ in that partial state.
-Finally, the action with the highest expected reward can be selected.
+select an action following Algorithm~\ref{algo} in a instance-based learning
+fashion. For each action $a \in \mathcal{A}$, we take the pair $(s',r)$ with the
+closest $s'$ to the current state (as defined by the average quadratic distance
+over the normalised dimensions where $s'$ is defined). That way, each action $a$
+can be associated to an expected reward defined by the product between the
+similarity of the closest partial state known for $a$ and the reward obtained
+for executing $a$ in that partial state.  Finally, the action with the highest
+expected reward can be selected.
+
+The normalisation of each dimension of the state allows distances to be
+comparable as values on all dimensions have the same range. Additionally taking
+the average quadratic distance over each defined dimension allows to compare
+distances even when states are defined on a different number of dimensions.
 
 %When selecting an action, the agent can also use
 %the dimensions of the close state $s'$ used for the selection to indicate the
