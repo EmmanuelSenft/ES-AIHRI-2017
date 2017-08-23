@@ -122,7 +122,7 @@ successful.
 
 \subsection{Human impact on Reinforcement Learning}
 
-Initial knowledge is often a crucial step to allow an algorithm to learn an
+Initial knowledge is often crucial to allow an algorithm to learn an
 efficient action policy. This knowledge, originating from human expertise, can
 be exploited in many ways. 
 
@@ -170,20 +170,21 @@ approach, known as ``scaffolding''~\cite{saunders2006teaching}, progressively
 increases the difficulty and complexity of the task as the robot is learning to
 reach policies which would take prohibitively long without scaffolding.
 
-Approaches from animal conditioning have also been transfered to Machine
-Learning. For example, the TAMER framework~\cite{knox2009interactively} is an
-adaptation of ``shaping'', tuning an animal's behaviour by providing rewards to
-guide it to the desired behaviour. Unlike other RL setups, with TAMER, the
-reward is not provided by the environment but by a human observer. TAMER derives
-a reward function from the human feedbacks and uses this function to evaluate
-the current behaviour. In a similar approach, MacGlashan et al. proposed COACH
+Agents learning in environments providing rewards can also benefit from
+additional rewards from human teachers. Depending on the task and the
+environment, different ways exist to combine rewards from multiple sources, and
+studies show that augmenting rewards from the environment by human ones can
+speed up the learning and reduce the number of undesired behaviours~
+\cite{griffith2013policy,knox2010combining,judah2010reinforcement}.
+
+When environments do not supply rewards, they can be replaced by human ones. For
+example, the TAMER framework~\cite{knox2009interactively} derives a reward
+function from the human feedbacks and uses this function to evaluate the current
+behaviour. In a similar approach, MacGlashan et al. proposed COACH
 in~\cite{macglashan2017interactive}. COACH assumes that human rewards represent
 the advantage function, i.e. how much the current action is better than the
-current policy. With COACH, the teacher can adapt the rewards to the current
-policy and performance of the agent, for example starting to positively reward
-suboptimal behaviours that are better than the current policy and later, as the
-agent improves its behaviour, reward these same suboptimal behaviours negatively
-and only the optimal ones positively.
+current policy, allowing to adapt the reward function to the strategies used and
+the current state of the learner.
 
 Another approach to guide the learning is to bias the action selection.
 In~\cite{thomaz2008teachable}, the authors propose to use a human supervisor to
@@ -214,10 +215,16 @@ quickly an efficient policy. However, as the teacher only provide feedbacks and
 cannot prevent the agent to make mistakes, the initial performance can be poor.
 On the other hand, SPARC, with the control of the teacher over the executed
 actions can prevent the agent to make mistakes in early stages, achieving a high
-performance even at the start of the learning. The total blending between
-autonomous execution of actions and demonstrations and the control over
-\emph{every} actions executed by the agent are the specificities of SPARC
-compared to other approaches using humans to guide the learning of an agent.
+performance even at the start of the learning. 
+
+Compared to similar algorithms
+\cite{chernova2009interactive,walsh2010generalizing}, which allows the agent to
+request demonstrations and/or the teacher to provide demonstrations to correct
+mistakes made by the robot, SPARC allows the teacher to correct any  action
+before its execution, thus reducing importantly the risk of the agent making
+errors. The total blending between autonomous execution of actions and
+demonstrations and the control over \emph{every} actions executed by the agent
+are the specificities of SPARC.
 
 \begin{figure}
     \centering
@@ -257,12 +264,15 @@ are needed which can generalise from a low number of noisy data points.
 
 In this paper we propose to use a human user to highlight the relevant features
 of the environment to reduce the state dimension of the points only to relevant
-information.  We introduce the concept of a partial state, a sliced version of
+information. We introduce the concept of a partial state, a sliced version of
 the state defined only on a subset of the dimensions of the state. This shifts
 the (state, action) pair paradigm to (partial state, action)  and in the case of
 RL, the tuple (state, action, reward) to (partial state, action, reward). This
 allows to compare the current state and the datapoints only on relevant features
-for action selection.
+for action selection. With this instance-based method~\cite{aha1991instance},
+the algorithm can have a state abstraction allowing it to generalise even with a
+few datapoints instead of the large numbers normally required to abstract
+features from examples.
 
 \subsection{Learning algorithm}
 
@@ -332,11 +342,7 @@ expected reward can be selected.
 The normalisation of each dimension of the state allows distances to be
 comparable as values on all dimensions have the same range. Additionally taking
 the average quadratic distance over each defined dimension allows to compare
-distances even when states are defined on a different number of dimensions.
-
-%When selecting an action, the agent can also use
-%the dimensions of the close state $s'$ used for the selection to indicate the
-%supervisor which parts of the state have been used for the action selection.
+similarities even when states are defined on a different number of dimensions.
 
 \subsection{Combination with SPARC}
 
@@ -356,7 +362,6 @@ associating a reward of -1 to the partial state identified by the robot or the
 supervisor. 
 
 \section{Application scenario}
-
 
 An example of an application is a social robot which interacts with children in
 an educational scenario.  The robot plays an educational game with children to
