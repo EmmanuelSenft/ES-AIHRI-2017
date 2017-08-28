@@ -53,14 +53,14 @@ United Kingdom\\
     for social interactions. This implies that traditional approaches used for
     Reinforcement Learning cannot be directly applied for learning how to
     interact with the social world. As such we argue that robots will profit
-    from human expertise and guidance to learn social interactions. And as the
+    from human expertise and guidance to learn social interactions. However, as the
     quantity of input a human can provide is limited, new methods have to be
     designed to use human input more efficiently. In this paper we describe a
     setup in which we combine a framework called Supervised Progressively
     Autonomous Robot Competencies (SPARC), which allows safer online learning
-    with Reinforcement Learning, with the use partial states rather than full
-    states to accelerate generalisation and obtain more quickly a usable action
-    policy.
+    with Reinforcement Learning, with the use of partial states rather than full
+    states to accelerate generalisation and obtain a usable action
+    policy more quickly.
 
 \end{abstract}
 %===============================================================================
@@ -87,14 +87,14 @@ For a robot, interacting in the real world often requires taking in a diverse
  and associate them with appropriate actions.
 
 In previous work~\cite{senft2015sparc,senft2017supervised}, we introduced the
-Supervised Progressively Autonomous Robot Competencies (SPARC), a way to teach a
+Supervised Progressively Autonomous Robot Competencies (SPARC) as a way to teach a
 robot an action policy while interacting based on a human supervisor intervening
 and correcting actions before they were executed by the robot. In this paper, we
 propose to extend this approach to allow the supervisor to highlight features in
 the environment relevant for the selected action. During the action selection
-phase, the robot can compare these features, defined as partial states, with the
+phase, the robot can compare these features, defined as \textit{partial states}, with the
 current state to select an action. The selected action is presented to the human
-supervisor, who can either correct the action or approve it for execution.
+supervisor, who can either correct the proposed action or approve it for execution.
 
 %===============================================================================
 
@@ -150,7 +150,7 @@ larger board size contains more than $10^{210}$ states, so exhaustive search is
 not possible.  Silver et al.~\cite{silver2016mastering} started with supervised
 learning from Go masters' games to learn a decent enough policy and then
 proceeded using deep learning, self play and tree search to achieve super-human
-capabilities and beating the best human players.
+capabilities and the capacity to beat the best human players.
 
 These demonstrations can also be used to learn a reward function. With Inverse
 Reinforcement Learning, the agent is not provided with a reward function, but
@@ -187,7 +187,7 @@ current policy, allowing to adapt the reward function to the strategies used and
 the current state of the learner.
 
 Another approach to guide the learning is to bias the action selection.
-In~\cite{thomaz2008teachable}, the authors propose to use a human supervisor to
+In~\cite{thomaz2008teachable}, the authors propose using a human supervisor to
 supply an agent with both rewards and potential guidance indicating what the
 agent should pay attention to, or what action it should take next. They show
 that giving the power to the supervisor to bias the action selection can improve
@@ -199,7 +199,7 @@ control the robot's actions. This supervisor is presented with the action the
 robot is about to execute. He can then choose to cancel it, allow it to be
 executed, or can select an alternative action. Based on the supervisor's
 decisions, the robot learns which actions are desired and can as such refine its
-policy over time reducing the need for the supervisor to correct or select an
+policy over time, thus progressively reducing the need for the supervisor to correct or select an
 action.
 
 SPARC gives control of the robot's actions to an expert, who can guide the
@@ -208,19 +208,19 @@ behaviour is consistently appropriate. As the exploration is guided, and all the
 actions are useful, the learning can be faster than autonomous learning or
 learning based on human feedback as illustrated in Figure~\ref{fig:comparison}.
 In Autonomous Learning, the agent has first to discover its environment to start
-gathering relevant feedbacks, leading to a low initial performance and a slow
-improvement in early stage of learning. With a teaching based on human
-feedbacks, the teacher can quickly provide feedbacks on actions to reach more
-quickly an efficient policy. However, as the teacher only provide feedbacks and
-cannot prevent the agent to make mistakes, the initial performance can be poor.
+gathering relevant feedback, leading to a low initial performance and a slow
+improvement in early stage of learning. With teaching based on human
+feedback, the teacher can quickly provide information on actions to reach an efficient policy more
+quickly. However, as the teacher only provides feedback and
+cannot prevent the agent making mistakes, the initial performance can be poor.
 On the other hand, SPARC, with the control of the teacher over the executed
-actions can prevent the agent to make mistakes in early stages, achieving a high
+actions, can prevent the agent from making mistakes in early stages, achieving a high
 performance even at the start of the learning. 
 
 Compared to similar algorithms
 \cite{chernova2009interactive,walsh2010generalizing}, which allows the agent to
 request demonstrations and/or the teacher to provide demonstrations to correct
-mistakes made by the robot, SPARC allows the teacher to correct any  action
+mistakes made by the robot, SPARC allows the teacher to correct any action
 before its execution, thus reducing importantly the risk of the agent making
 errors. The total blending between autonomous execution of actions and
 demonstrations and the control over \emph{every} actions executed by the agent
@@ -231,14 +231,15 @@ are the specificities of SPARC.
     \includegraphics[width=0.9\linewidth]{./figs/motivation.pdf}
     \caption{An illustration of the evolution over time of the performance,
     autonomy and human workload for an autonomous learner, an approach using
-    human feedbacks, and SPARC.}
+    human feedback, and SPARC.}
     \label{fig:comparison}
 \end{figure}
+%PEB: in the figure "feedbacks" should be "feedback"
 
 In~\cite{senft2017supervised}, we presented a way to combine SPARC and RL, by
 assigning a positive reward to every action executed by the robot, making the
 assumption that every action has been explicitly or implicitely approved by the
-supervisor. However this method was directly mapping a single (state, action)
+supervisor. However this method directly mapped a single (state, action)
 pair to a reward without making use of any kind of generalisation. As such it
 was not applicable to environments with a continuous or high dimensional space
 or non-deterministic transitions from one state to another, elements which are
@@ -252,27 +253,28 @@ learning can be faster and safer.
 To make RL applicable in high dimensional or continuous states, the algorithm
 requires a way to generalise knowledge to unseen states. A classic approach is
 to use a feed-forward neural network or deep learning to learn a the value
-function generalising to unseen states. Neural network rely on having a large
+function generalising to unseen states. Neural networks rely on having a large
 number of datapoints to converge toward a good function approximator.
 Alternatively, Cobo et al. proposed in~\cite{cobo2011automatic} to abstract
-features automaticly from demonstrations to learn faster. But even in this case,
+features automatically from demonstrations to learn faster. But even in this case,
 the number of datapoints required is still high (around 1000 samples per
-participants). However, in many applications and especially in HRI, these
+participant). However, in many applications and especially in HRI, these
 amounts of data are not available or obtainable due to practical constraints.
 Furthermore, human responses are often noisy and lack consistency, so methods
 are needed which can generalise from a low number of noisy data points.
 
 In this paper we propose to use a human user to highlight the relevant features
 of the environment to reduce the state dimension of the points only to relevant
-information. We introduce the concept of a partial state, a sliced version of
+information. We introduce the concept of a \textit{partial state}, a sliced version of
 the state defined only on a subset of the dimensions of the state. This shifts
 the (state, action) pair paradigm to (partial state, action)  and in the case of
 RL, the tuple (state, action, reward) to (partial state, action, reward). This
-allows to compare the current state and the datapoints only on relevant features
+allows a comparison of the current state and the datapoints only on relevant features
 for action selection. With this instance-based method~\cite{aha1991instance},
 the algorithm can have a state abstraction allowing it to generalise even with a
 few datapoints instead of the large numbers normally required to abstract
 features from examples.
+%PEB: sounds very much like the "don't care" token in learning classifier systems...
 
 \subsection{Learning algorithm}
 
@@ -385,7 +387,7 @@ The GUI (Figure~\ref{fig:gui}) is an augmented version of the game itself, which
 can be use to make the robot move items on the game by dragging them on the GUI
 or which can display actions proposed by the robot with a cancel button to
 refuse an action. For example in Figure~\ref{fig:gui} the robot proposes to move
-the eagle to the rat, and highlight (as shown by blue circles) the eagle and the
+the eagle to the rat, and highlights (as shown by blue circles) the eagle and the
 rat. This indicate that features relevant to the eagle and the rat have been
 used to select this action.
 
@@ -400,7 +402,7 @@ select features in the state relevant to the action.
         \centering
     \includegraphics[width=60mm]{./figs/proposition.png}
     \caption{Interface for the supervisor with an action being proposed, moving
-        the eagle to the rat with highlight of the eagle and the rat.}
+        the eagle to the rat highlighting both the eagle and the rat.}
         \label{fig:gui}
 \end{figure}
 
@@ -431,7 +433,7 @@ during the learning phase and combine these rewards with the demonstrations to
 learn a reward function in a fashion similar to Inverse Reinforcement
 Learning~\cite{abbeel2004apprenticeship} or TAMER ~\cite{knox2009interactively}.
 This could also use partial states associated to these rewards to ease the
-generalisation of the reward function with only a low number of datapoints.  But
+generalisation of the reward function with only a low number of datapoints. However,
 without the supervisor, the assumption that only a myopic action selection is
 sufficient would not hold anymore and the problem of delayed rewards would have
 to be tackled.
