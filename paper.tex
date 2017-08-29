@@ -8,9 +8,7 @@
 \usepackage{url}  %Required
 \usepackage{graphicx}  %Required
 \usepackage[ruled,vlined]{algorithm2e}
-\usepackage{comment}
 \usepackage{amssymb}
-\usepackage{subcaption}
 \frenchspacing  %Required
 \setlength{\pdfpagewidth}{8.5in}  %Required
 \setlength{\pdfpageheight}{11in}  %Required
@@ -234,7 +232,6 @@ are the specificities of SPARC.
     human feedback, and SPARC.}
     \label{fig:comparison}
 \end{figure}
-%PEB: in the figure "feedbacks" should be "feedback"
 
 In~\cite{senft2017supervised}, we presented a way to combine SPARC and RL, by
 assigning a positive reward to every action executed by the robot, making the
@@ -274,7 +271,6 @@ for action selection. With this instance-based method~\cite{aha1991instance},
 the algorithm can have a state abstraction allowing it to generalise even with a
 few datapoints instead of the large numbers normally required to abstract
 features from examples.
-%PEB: sounds very much like the "don't care" token in learning classifier systems...
 
 \subsection{Learning algorithm}
 
@@ -292,7 +288,6 @@ to a set of actions $\mathcal{A}$ and a state $\mathcal{S} \in [0,1]^{n}$. We
 also define the partial states $\mathcal{S'} \in [0,1]^{n'}$ with $n' \leq n$ as
 a slice of $\mathcal{S}$, a subset of $\mathcal{S}$ where some dimensions have
 been removed. 
-%With each dimension of S representing features in the environment.
 
 When the agent executes an action $a$ in state $s$, it receives the reward $r$
 associated with the partial state $s'$. For example, a state $s$ could be
