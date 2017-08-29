@@ -149,6 +149,14 @@ following:
  - There are questions as to the feasibility of the approach.
  - May be helpful to clarify how SPARC interaction is distinct from
    apprenticeship learning work, in order to better situate the contribution.
- - Also. There is some very relevant prior work excluded from paper citations.  Many of those are listed in the individual reviews.  Additionally, previous work done on interactive policy learning (Chernova, 2009) for guiding a robot to learn the expert’s policy and state abstraction from demonstration (Cobo et al, 2011) which focuses on enabling a robot to learn state abstraction (extracting discriminative features for representing the state) and then using the state abstraction to speed up an RL algorithm seem very relevant to the work presented.  Situating the contribution with respect to all of this work is suggested.
+ - Also. There is some very relevant prior work excluded from paper citations.
+   Many of those are listed in the individual reviews.  Additionally, previous
+   work done on interactive policy learning (Chernova, 2009) for guiding a
+   robot to learn the expert’s policy and state abstraction from demonstration
+   (Cobo et al, 2011) which focuses on enabling a robot to learn state
+   abstraction (extracting discriminative features for representing the state)
+   and then using the state abstraction to speed up an RL algorithm seem very
+   relevant to the work presented.  Situating the contribution with respect to
+   all of this work is suggested.
 
 Additional details can be found in the individual reviews.
