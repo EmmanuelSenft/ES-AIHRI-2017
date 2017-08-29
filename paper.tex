@@ -179,7 +179,7 @@ speed up the learning and reduce the number of undesired behaviours~
 
 When environments do not supply rewards, they can be replaced by human ones. For
 example, the TAMER framework~\cite{knox2009interactively} derives a reward
-function from the human feedbacks and uses this function to evaluate the current
+function from the human feedback and uses this function to evaluate the current
 behaviour. In a similar approach, MacGlashan et al. proposed COACH
 in~\cite{macglashan2017interactive}. COACH assumes that human rewards represent
 the advantage function, i.e. how much the current action is better than the
@@ -218,7 +218,7 @@ actions, can prevent the agent from making mistakes in early stages, achieving a
 performance even at the start of the learning. 
 
 Compared to similar algorithms
-\cite{chernova2009interactive,walsh2010generalizing}, which allows the agent to
+\cite{chernova2009interactive,walsh2010generalizing}, which allow the agent to
 request demonstrations and/or the teacher to provide demonstrations to correct
 mistakes made by the robot, SPARC allows the teacher to correct any action
 before its execution, thus reducing importantly the risk of the agent making
@@ -321,7 +321,7 @@ evolution of the policy evaluation by the supervisor.
         $\hat{p} = arg\, max_{p} \Delta(p)$\\
         compute expected reward $\hat{r}(a)$ for taking $a$ in $s$:\\
         $\hat{r}(a) = \Delta (\hat{p}) \cdot r(\hat{p})$\\
-        with $r(p)$ the reward of $p = (s',r)$ 
+        with $r(p)$ the reward $r$ of the pair $p = (s',r)$ 
     }
     Select the action with the maximum expected reward:
     $\pi(s) = arg\, max_{a} \hat{r}(a)$
